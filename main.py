@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy import stats
-
+import statsmodels.api as sm
 
 def process_economic_data(gdp_data: str,
                           employment_data: str,
@@ -96,13 +96,73 @@ def process_economic_data(gdp_data: str,
     growth['RGDP_Growth'] = round(growth['GDPC1'].pct_change(12) * 100, 2)
     income['RDPI_Growth'] = round(income['RDPI'].pct_change(12) * 100, 2)
     inflation['Inflation'] = round(inflation['PCE'].pct_change(12) * 100, 2)
-    stock_market['Stock_Market'] = stock_market['Mkt-RF'] + stock_market['RF']
+    stock_market['Stock_Market'] = round(stock_market['Mkt-RF'] + stock_market['RF'], 2)
 
     # Merge all of the data together.
     data = pd.concat([growth['RGDP_Growth'], employment['Unemployment'], income['RDPI_Growth'], inflation['Inflation'], stock_market['Stock_Market']], axis=1, join='inner')
     
     # Return the processed data.
     return data
+
+
+def create_composite_economic_index(data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Create a composite economic index.
+
+    Args:
+        data (pd.DataFrame):
+            Processed economic data.
+
+    Returns:
+        pd.DataFrame:
+            Composite economic index.
+    """
+
+    # Calculate z-scores for pre-2000 data.
+    pre_2000_data = data[data.index < '2000-01-01']
+    pre_2000_data = pre_2000_data.copy()
+    pre_2000_data['RGDP_Growth_Z'] = round(stats.zscore(pre_2000_data['RGDP_Growth']), 2)
+    pre_2000_data['Unemployment_Z'] = round(stats.zscore(pre_2000_data['Unemployment']), 2) * -1
+    pre_2000_data['RDPI_Growth_Z'] = round(stats.zscore(pre_2000_data['RDPI_Growth']), 2)
+    pre_2000_data['Inflation_Z'] = round(stats.zscore(pre_2000_data['Inflation']), 2) * -1
+    pre_2000_data['Stock_Market_Z'] = round(stats.zscore(pre_2000_data['Stock_Market']), 2)
+
+    # Calculate composite economic index for pre-2000 data.
+    pre_2000_data['Composite_Economic_Index'] = (
+        pre_2000_data['RGDP_Growth_Z'] +
+        pre_2000_data['Unemployment_Z'] +
+        pre_2000_data['RDPI_Growth_Z'] +
+        pre_2000_data['Inflation_Z'] +
+        pre_2000_data['Stock_Market_Z']
+    ) / 5
+    pre_2000_data['Composite_Economic_Index'] = round(pre_2000_data['Composite_Economic_Index'], 2)
+
+    # Calculate z-scores for post-2000 data using expanding window.
+    post_2000_data = data[data.index >= '2000-01-01']
+    post_2000_data = post_2000_data.copy()
+    for i in range(len(post_2000_data)):
+        window_data = data[:post_2000_data.index[i]]
+        post_2000_data.loc[post_2000_data.index[i], 'RGDP_Growth_Z'] = round(stats.zscore(window_data['RGDP_Growth']).iloc[-1], 2)
+        post_2000_data.loc[post_2000_data.index[i], 'Unemployment_Z'] = round(stats.zscore(window_data['Unemployment']).iloc[-1], 2) * -1
+        post_2000_data.loc[post_2000_data.index[i], 'RDPI_Growth_Z'] = round(stats.zscore(window_data['RDPI_Growth']).iloc[-1], 2)
+        post_2000_data.loc[post_2000_data.index[i], 'Inflation_Z'] = round(stats.zscore(window_data['Inflation']).iloc[-1], 2) * -1
+        post_2000_data.loc[post_2000_data.index[i], 'Stock_Market_Z'] = round(stats.zscore(window_data['Stock_Market']).iloc[-1], 2)
+
+    # Calculate composite economic index for post-2000 data.
+    post_2000_data['Composite_Economic_Index'] = (
+        post_2000_data['RGDP_Growth_Z'] +
+        post_2000_data['Unemployment_Z'] +
+        post_2000_data['RDPI_Growth_Z'] +
+        post_2000_data['Inflation_Z'] +
+        post_2000_data['Stock_Market_Z']
+    ) / 5
+    post_2000_data['Composite_Economic_Index'] = round(post_2000_data['Composite_Economic_Index'], 2)
+
+    # Combine pre-2000 and post-2000 data.
+    composite_index = pd.concat([pre_2000_data, post_2000_data])
+
+    # Return the composite economic index.
+    return composite_index
 
 
 if __name__ == '__main__':
@@ -114,4 +174,4 @@ if __name__ == '__main__':
                                                     inflation_quarterly_data='raw_data/PCECTPI.csv',
                                                     stock_market_data='raw_data/F-F_Research_Data_Factors 3.csv')
     
-    print(processed_economic_data.head())
+    composite_economic_index = create_composite_economic_index(processed_economic_data)
