@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 from scipy import stats
 import statsmodels.api as sm
+from typing import Tuple, List
+from scipy.optimize import minimize
+
 
 def process_economic_data(gdp_data: str,
                           employment_data: str,
@@ -161,8 +164,109 @@ def create_composite_economic_index(data: pd.DataFrame) -> pd.DataFrame:
     # Combine pre-2000 and post-2000 data.
     composite_index = pd.concat([pre_2000_data, post_2000_data])
 
+    # Chnage the date index to only keep the year and month.
+    composite_index.index = composite_index.index.strftime('%Y-%m')
+
     # Return the composite economic index.
     return composite_index
+
+
+def aggregate_fundamental_data(economic_data: pd.DataFrame,
+                               incumbency_data: str,
+                               approval_data: str,
+                               election_results: str) -> pd.DataFrame:
+    """
+    Aggregate the fundamental data with the poll data.
+
+    Args:
+        economic_data (pd.DataFrame):
+            Composite economic index.
+        incumbency_data (str):
+            Path to the incumbency data.
+        approval_data (str):
+            Path to the approval data
+        election_results (str):
+            Path to the election results
+
+    Returns:
+        pd.DataFrame:
+            Aggregated data.
+    """
+
+    # Create a copy of the economic data and read in the other data.
+    economic_data = economic_data.copy()
+    incumbency = pd.read_csv(incumbency_data)
+    approvals = pd.read_csv(approval_data)
+    election_results = pd.read_csv(election_results)
+
+    # Calculate the incumbent's share of the two-party vote.
+    election_results['Incumbent_Share'] = election_results['Incumbent Party Votes'] / (election_results['Incumbent Party Votes'] + election_results['Challenger Party Votes'])
+
+    # Merge the incumbency, approval, and election results data.
+    data = pd.merge(incumbency, approvals, on='Year')
+    data = pd.merge(data, election_results[['Year', 'Incumbent_Share']], on='Year')
+
+    # Prepare economic windows for each election.
+    economic_windows = []
+    for year in data['Year']:
+        start_date = f"{year-3}-01"
+        end_date = f"{year}-09"
+        economic_windows.append(economic_data.loc[start_date:end_date])
+
+    return data, economic_windows
+
+
+def run_regression(data: pd.DataFrame, economic_windows: List[pd.DataFrame]) -> Tuple[np.ndarray, float]:
+    """
+    Run an optimized regression to find the best parameters for predicting incumbent party vote share.
+
+    Args:
+        data (pd.DataFrame): Merged data containing 'Year', 'Incumbency', 'Net Presidential Approval', and 'Incumbent_Share'.
+        economic_windows (List[pd.DataFrame]): List of economic data windows for each election year.
+
+    Returns:
+        Tuple[np.ndarray, float]: Optimized parameters and R-squared value.
+    """
+    def exponential_decay(months: float, lambda_param: float) -> float:
+        return lambda_param ** months
+
+    def model_function(params: np.ndarray) -> np.ndarray:
+        intercept, incumbency_coef, approval_coef, economic_coef, lambda_param = params
+        predictions = []
+        for i, year in enumerate(data['Year']):
+            # Ensure the index is in datetime format
+            economic_windows[i].index = pd.to_datetime(economic_windows[i].index)
+            months_until_election = ((pd.to_datetime(f"{year}-11-01") - economic_windows[i].index).days / 30.44).astype(float)
+            weights = months_until_election.map(lambda x: exponential_decay(x, lambda_param))
+            weighted_economic_index = (economic_windows[i]['Composite_Economic_Index'] * weights).sum() / weights.sum()
+            
+            prediction = (intercept + 
+                          incumbency_coef * data.loc[data['Year'] == year, 'Incumbency'].values[0] +
+                          approval_coef * data.loc[data['Year'] == year, 'Net Presidential Approval'].values[0] +
+                          economic_coef * weighted_economic_index)
+            predictions.append(prediction)
+        return np.array(predictions)
+
+    def objective_function(params: np.ndarray) -> float:
+        predictions = model_function(params)
+        actual = data['Incumbent_Share'].values
+        return np.sum((predictions - actual) ** 2)
+
+    initial_params = [0.5, 0.1, 0.001, 0.1, 0.5]  # Initial guess for [intercept, incumbency_coef, approval_coef, economic_coef, lambda_param]
+    bounds = [(None, None), (None, None), (None, None), (None, None), (0, 1)]  # Bounds for parameters, lambda must be between 0 and 1
+    
+    result = minimize(objective_function, initial_params, method='L-BFGS-B', bounds=bounds)
+    
+    optimized_params = result.x
+    
+    # Calculate R-squared
+    predictions = model_function(optimized_params)
+    actual = data['Incumbent_Share'].values
+    ss_total = np.sum((actual - np.mean(actual)) ** 2)
+    ss_residual = np.sum((actual - predictions) ** 2)
+    r_squared = 1 - (ss_residual / ss_total)
+    
+    return optimized_params, r_squared
 
 
 if __name__ == '__main__':
@@ -173,5 +277,9 @@ if __name__ == '__main__':
                                                     inflation_monthly_data='raw_data/PCEPILFE.csv',
                                                     inflation_quarterly_data='raw_data/PCECTPI.csv',
                                                     stock_market_data='raw_data/F-F_Research_Data_Factors 3.csv')
-    
     composite_economic_index = create_composite_economic_index(processed_economic_data)
+    data, economic_windows = aggregate_fundamental_data(economic_data=composite_economic_index,
+                                incumbency_data='raw_data/incumbency.csv',
+                                approval_data='raw_data/approval.csv',
+                                election_results='raw_data/election_results.csv')
+    run_regression(data=data, economic_windows=economic_windows)
