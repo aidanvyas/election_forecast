@@ -20,7 +20,7 @@ def process_data():
     employment['DATE'] = pd.to_datetime(employment['DATE'])
     employment = employment.set_index('DATE')
     # rename
-    employment = employment.rename(columns={'Unemployment': 'UNRATE'})
+    employment = employment.rename(columns={'UNRATE': 'Unemployment'})
 
     # Read and process income_monthly data
     income_monthly = pd.read_csv('raw_data/A229RX0.csv')
@@ -70,9 +70,11 @@ def process_data():
     stock_market['Stock_Market'] = stock_market['Mkt-RF'] + stock_market['RF']
 
     # merge all the data together - remove rows with missing data
-    data = pd.concat([growth['RGDP_Growth'], employment['UNRATE'], income['RDPI_Growth'], inflation['Inflation'], stock_market['Stock_Market']], axis=1, join='inner')
-    print(data)
+    data = pd.concat([growth['RGDP_Growth'], employment['Unemployment'], income['RDPI_Growth'], inflation['Inflation'], stock_market['Stock_Market']], axis=1, join='inner')
+    
+    return data
 
 
 if __name__ == '__main__':
-    process_data()
+    processed_economic_data = process_data()
+    print(processed_economic_data.head())
