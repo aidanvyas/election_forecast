@@ -4,33 +4,25 @@ from scipy import stats
 import statsmodels.api as sm
 from typing import Tuple, List
 from scipy.optimize import minimize
+from scipy.stats import t
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+import seaborn as sns
 
 
 def process_economic_data(gdp_data: str,
-                          employment_data: str,
                           income_monthly_data: str,
-                          income_quarterly_data: str,
-                          inflation_monthly_data: str,
-                          inflation_quarterly_data: str,
-                          stock_market_data: str) -> pd.DataFrame:
+                          income_quarterly_data: str) -> pd.DataFrame:
     """
     Process economic data for the model.
 
     Args:
         gdp_data (str):
             Path to the GDP data.
-        employment_data (str):
-            Path to the employment data.
         income_monthly_data (str):
             Path to the monthly income data.
         income_quarterly_data (str):
             Path to the quarterly income data.
-        inflation_monthly_data (str):
-            Path to the monthly inflation data.
-        inflation_quarterly_data (str):
-            Path to the quarterly inflation data.
-        stock_market_data (str):
-            Path to the stock market data.
 
     Returns:
         pd.DataFrame:
@@ -39,35 +31,22 @@ def process_economic_data(gdp_data: str,
 
     # Read in the csv files.
     growth = pd.read_csv(gdp_data)
-    employment = pd.read_csv(employment_data)
     income_monthly = pd.read_csv(income_monthly_data)
     income_quarterly = pd.read_csv(income_quarterly_data)
-    inflation_monthly = pd.read_csv(inflation_monthly_data)
-    inflation_quarterly = pd.read_csv(inflation_quarterly_data)
-    stock_market = pd.read_csv(stock_market_data)
 
     # Reformat the Date columns.
     growth['DATE'] = pd.to_datetime(growth['DATE'])
-    employment['DATE'] = pd.to_datetime(employment['DATE'])
     income_monthly['DATE'] = pd.to_datetime(income_monthly['DATE'])
     income_quarterly['DATE'] = pd.to_datetime(income_quarterly['DATE'])
-    inflation_monthly['DATE'] = pd.to_datetime(inflation_monthly['DATE'])
-    inflation_quarterly['DATE'] = pd.to_datetime(inflation_quarterly['DATE'])
-    stock_market['Date'] = pd.to_datetime(stock_market['Date'], format='%Y%m')
 
     # Set the Date columns as the index.
     growth = growth.set_index('DATE')
-    employment = employment.set_index('DATE')
     income_monthly = income_monthly.set_index('DATE')
     income_quarterly = income_quarterly.set_index('DATE')
-    inflation_monthly = inflation_monthly.set_index('DATE')
-    inflation_quarterly = inflation_quarterly.set_index('DATE')
-    stock_market = stock_market.set_index('Date')
 
     # Forward fill the quarterly data.
     growth = growth.resample('MS').ffill()
     income_quarterly = income_quarterly.resample('MS').ffill()
-    inflation_quarterly = inflation_quarterly.resample('MS').ffill()
 
     # Deal with the missing data for GDP.
     last_date = growth.index[-1]
@@ -79,30 +58,23 @@ def process_economic_data(gdp_data: str,
         growth = growth.sort_index()
 
     # Rename the columns.
-    employment = employment.rename(columns={'UNRATE': 'Unemployment'})
     income_monthly = income_monthly.rename(columns={'A229RX0': 'RDPI'})
     income_quarterly = income_quarterly.rename(columns={'A229RX0Q048SBEA': 'RDPI'})
-    inflation_monthly = inflation_monthly.rename(columns={'PCEPILFE': 'PCE'})
-    inflation_quarterly = inflation_quarterly.rename(columns={'PCECTPI': 'PCE'})
 
     # Merge together the income data.
-    income_monthly = income_monthly[income_monthly.index > '1960-01-01']
+    income_monthly = income_monthly[income_monthly.index >= '1960-01-01']
     income_quarterly = income_quarterly[income_quarterly.index < '1960-01-01']
     income = pd.concat([income_quarterly, income_monthly])
 
-    # Merge together the inflation data.
-    inflation_monthly = inflation_monthly[inflation_monthly.index > '1960-01-01']
-    inflation_quarterly = inflation_quarterly[inflation_quarterly.index < '1960-01-01']
-    inflation = pd.concat([inflation_quarterly, inflation_monthly])
-
-    # Calculate the growth rates and stock market returns.
+    # Calculate the growth rates.
     growth['RGDP_Growth'] = round(growth['GDPC1'].pct_change(12) * 100, 2)
     income['RDPI_Growth'] = round(income['RDPI'].pct_change(12) * 100, 2)
-    inflation['Inflation'] = round(inflation['PCE'].pct_change(12) * 100, 2)
-    stock_market['Stock_Market'] = round(stock_market['Mkt-RF'] + stock_market['RF'], 2)
 
     # Merge all of the data together.
-    data = pd.concat([growth['RGDP_Growth'], employment['Unemployment'], income['RDPI_Growth'], inflation['Inflation'], stock_market['Stock_Market']], axis=1, join='inner')
+    data = pd.concat([growth['RGDP_Growth'], income['RDPI_Growth']], axis=1, join='inner')
+
+    # Remove any rows with missing data.
+    data = data.dropna()
     
     # Return the processed data.
     return data
@@ -125,19 +97,13 @@ def create_composite_economic_index(data: pd.DataFrame) -> pd.DataFrame:
     pre_2000_data = data[data.index < '2000-01-01']
     pre_2000_data = pre_2000_data.copy()
     pre_2000_data['RGDP_Growth_Z'] = round(stats.zscore(pre_2000_data['RGDP_Growth']), 2)
-    pre_2000_data['Unemployment_Z'] = round(stats.zscore(pre_2000_data['Unemployment']), 2) * -1
     pre_2000_data['RDPI_Growth_Z'] = round(stats.zscore(pre_2000_data['RDPI_Growth']), 2)
-    pre_2000_data['Inflation_Z'] = round(stats.zscore(pre_2000_data['Inflation']), 2) * -1
-    pre_2000_data['Stock_Market_Z'] = round(stats.zscore(pre_2000_data['Stock_Market']), 2)
 
     # Calculate composite economic index for pre-2000 data.
     pre_2000_data['Composite_Economic_Index'] = (
         pre_2000_data['RGDP_Growth_Z'] +
-        pre_2000_data['Unemployment_Z'] +
-        pre_2000_data['RDPI_Growth_Z'] +
-        pre_2000_data['Inflation_Z'] +
-        pre_2000_data['Stock_Market_Z']
-    ) / 5
+        pre_2000_data['RDPI_Growth_Z']
+    ) / 2
     pre_2000_data['Composite_Economic_Index'] = round(pre_2000_data['Composite_Economic_Index'], 2)
 
     # Calculate z-scores for post-2000 data using expanding window.
@@ -146,19 +112,13 @@ def create_composite_economic_index(data: pd.DataFrame) -> pd.DataFrame:
     for i in range(len(post_2000_data)):
         window_data = data[:post_2000_data.index[i]]
         post_2000_data.loc[post_2000_data.index[i], 'RGDP_Growth_Z'] = round(stats.zscore(window_data['RGDP_Growth']).iloc[-1], 2)
-        post_2000_data.loc[post_2000_data.index[i], 'Unemployment_Z'] = round(stats.zscore(window_data['Unemployment']).iloc[-1], 2) * -1
         post_2000_data.loc[post_2000_data.index[i], 'RDPI_Growth_Z'] = round(stats.zscore(window_data['RDPI_Growth']).iloc[-1], 2)
-        post_2000_data.loc[post_2000_data.index[i], 'Inflation_Z'] = round(stats.zscore(window_data['Inflation']).iloc[-1], 2) * -1
-        post_2000_data.loc[post_2000_data.index[i], 'Stock_Market_Z'] = round(stats.zscore(window_data['Stock_Market']).iloc[-1], 2)
 
     # Calculate composite economic index for post-2000 data.
     post_2000_data['Composite_Economic_Index'] = (
         post_2000_data['RGDP_Growth_Z'] +
-        post_2000_data['Unemployment_Z'] +
-        post_2000_data['RDPI_Growth_Z'] +
-        post_2000_data['Inflation_Z'] +
-        post_2000_data['Stock_Market_Z']
-    ) / 5
+        post_2000_data['RDPI_Growth_Z']
+    ) / 2
     post_2000_data['Composite_Economic_Index'] = round(post_2000_data['Composite_Economic_Index'], 2)
 
     # Combine pre-2000 and post-2000 data.
@@ -193,93 +153,343 @@ def aggregate_fundamental_data(economic_data: pd.DataFrame,
             Aggregated data.
     """
 
-    # Create a copy of the economic data and read in the other data.
-    economic_data = economic_data.copy()
+    # Read in the data.
     incumbency = pd.read_csv(incumbency_data)
     approvals = pd.read_csv(approval_data)
     election_results = pd.read_csv(election_results)
-
+    
     # Calculate the incumbent's share of the two-party vote.
-    election_results['Incumbent_Share'] = election_results['Incumbent Party Votes'] / (election_results['Incumbent Party Votes'] + election_results['Challenger Party Votes'])
-
+    election_results['Incumbent_Share'] = election_results['Incumbent Party Votes'] / (
+        election_results['Incumbent Party Votes'] + election_results['Challenger Party Votes']
+    )
+    
     # Merge the incumbency, approval, and election results data.
     data = pd.merge(incumbency, approvals, on='Year')
     data = pd.merge(data, election_results[['Year', 'Incumbent_Share']], on='Year')
 
-    # Prepare economic windows for each election.
-    economic_windows = []
+    # Calculate weighted economic index for each election.
+    weighted_economic_indices = []
     for year in data['Year']:
-        start_date = f"{year-3}-01"
+        start_date = f"{year}-01"
         end_date = f"{year}-09"
-        economic_windows.append(economic_data.loc[start_date:end_date])
+        window = economic_data.loc[start_date:end_date, 'Composite_Economic_Index']       
+        weighted_index = window.mean()
+        weighted_economic_indices.append(weighted_index)
+    
+    # Add weighted economic index to the data.
+    data['Weighted_Economic_Index'] = weighted_economic_indices
+    
+    # Return the aggregated data.
+    return data
 
-    return data, economic_windows
 
-
-def run_regression(data: pd.DataFrame, economic_windows: List[pd.DataFrame]) -> Tuple[np.ndarray, float]:
+def run_regression(data: pd.DataFrame) -> None:
     """
-    Run an optimized regression to find the best parameters for predicting incumbent party vote share.
+    Run a series of regressions to predict incumbent party vote share, 
+    saving coefficients for each iteration and plotting results.
 
     Args:
-        data (pd.DataFrame): Merged data containing 'Year', 'Incumbency', 'Net Presidential Approval', and 'Incumbent_Share'.
-        economic_windows (List[pd.DataFrame]): List of economic data windows for each election year.
+        data (pd.DataFrame):
+            Merged data containing 'Year', 'Incumbency', 'Net Presidential Approval', 
+            'Incumbent_Share', and 'Weighted_Economic_Index'.
 
     Returns:
-        Tuple[np.ndarray, float]: Optimized parameters and R-squared value.
+        None.
     """
-    def exponential_decay(months: float, lambda_param: float) -> float:
-        return lambda_param ** months
 
-    def model_function(params: np.ndarray) -> np.ndarray:
-        intercept, incumbency_coef, approval_coef, economic_coef, lambda_param = params
-        predictions = []
-        for i, year in enumerate(data['Year']):
-            # Ensure the index is in datetime format
-            economic_windows[i].index = pd.to_datetime(economic_windows[i].index)
-            months_until_election = ((pd.to_datetime(f"{year}-11-01") - economic_windows[i].index).days / 30.44).astype(float)
-            weights = months_until_election.map(lambda x: exponential_decay(x, lambda_param))
-            weighted_economic_index = (economic_windows[i]['Composite_Economic_Index'] * weights).sum() / weights.sum()
-            
-            prediction = (intercept + 
-                          incumbency_coef * data.loc[data['Year'] == year, 'Incumbency'].values[0] +
-                          approval_coef * data.loc[data['Year'] == year, 'Net Presidential Approval'].values[0] +
-                          economic_coef * weighted_economic_index)
+    # Create a copy of the data.
+    data = data.copy()
+
+    # Create the interaction term.
+    data['Incumbency * Net Presidential Approval'] = data['Incumbency'] * data['Net Presidential Approval']
+    
+    # Initialize the list to store coefficients.
+    years = range(2000, 2021, 4)
+    coefficients = []
+
+    # Run regressions for each period.
+    for year in years:
+
+        # Train the model on all data before the current year.
+        train_data = data[data['Year'] < year]
+        X_train = train_data[['Incumbency * Net Presidential Approval', 'Weighted_Economic_Index']]
+        X_train = sm.add_constant(X_train)
+        y_train = train_data['Incumbent_Share']
+
+        # Fit the model.
+        model = sm.OLS(y_train, X_train)
+        results = model.fit()
+
+        # Save coefficients.
+        coefficients.append(results.params.to_dict())
+
+    # Save coefficients to a DataFrame.
+    coeff_df = pd.DataFrame(coefficients, index=years)
+    coeff_df.index.name = 'Year'
+    coeff_df.to_csv('results/regression_coefficients.csv')
+
+    # Predict incumbent share for each period.
+    predictions = []
+    for year in range(1952, 2021, 4):
+        if year <= 2000:
+            coeffs = coeff_df.loc[2000].to_dict()
+            prediction = coeffs['const'] + coeffs['Incumbency * Net Presidential Approval'] * data.loc[data['Year'] == year, 'Incumbency'] * data.loc[data['Year'] == year, 'Net Presidential Approval'] + coeffs['Weighted_Economic_Index'] * data.loc[data['Year'] == year, 'Weighted_Economic_Index']
             predictions.append(prediction)
-        return np.array(predictions)
+        else:
+            coeffs = coeff_df.loc[coeff_df.index == year].iloc[-1].to_dict()
+            prediction = coeffs['const'] + coeffs['Incumbency * Net Presidential Approval'] * data.loc[data['Year'] == year, 'Incumbency'] * data.loc[data['Year'] == year, 'Net Presidential Approval'] + coeffs['Weighted_Economic_Index'] * data.loc[data['Year'] == year, 'Weighted_Economic_Index']
+            predictions.append(prediction)
 
-    def objective_function(params: np.ndarray) -> float:
-        predictions = model_function(params)
-        actual = data['Incumbent_Share'].values
-        return np.sum((predictions - actual) ** 2)
+    # Calculate absolute error.
+    predictions_flat = [float(pred.iloc[0]) for pred in predictions]
+    abs_error = np.abs(data['Incumbent_Share'] - predictions_flat)
 
-    initial_params = [0.5, 0.1, 0.001, 0.1, 0.5]  # Initial guess for [intercept, incumbency_coef, approval_coef, economic_coef, lambda_param]
-    bounds = [(None, None), (None, None), (None, None), (None, None), (0, 1)]  # Bounds for parameters, lambda must be between 0 and 1
+    # Save predictions and actual values to a DataFrame.
+    pred_df = pd.DataFrame({
+        'Year': data['Year'],
+        'Actual_Incumbent_Share': data['Incumbent_Share'],
+        'Predicted_Incumbent_Share': predictions_flat,
+        'Error': abs_error,
+        'Sample': ['In-sample' if year < 2000 else 'Out-of-sample' for year in data['Year']]
+    })
+    pred_df.to_csv('results/predictions_and_actuals.csv', index=False)
+
+    # Plot the actual vs predicted incumbent share.
+    plt.figure(figsize=(12, 8))
+
+    # Plot in-sample predictions.
+    in_sample = pred_df[pred_df['Sample'] == 'In-sample']
+    plt.scatter(in_sample['Predicted_Incumbent_Share'], in_sample['Actual_Incumbent_Share'], 
+                color='blue', label='In-Sample', zorder=2)
+
+    # Plot out-of-sample predictions.
+    out_sample = pred_df[pred_df['Sample'] == 'Out-of-sample']
+    plt.scatter(out_sample['Predicted_Incumbent_Share'], out_sample['Actual_Incumbent_Share'], 
+                color='red', label='Out-of-Sample', zorder=2)
+
+    # Add year labels to each point.
+    for _, row in pred_df.iterrows():
+        plt.annotate(str(int(row['Year'])), 
+                    (row['Predicted_Incumbent_Share'], row['Actual_Incumbent_Share']),
+                    xytext=(5, 5), textcoords='offset points')
+
+    # Add line of perfect fit.
+    min_val = min(pred_df['Predicted_Incumbent_Share'].min(), pred_df['Actual_Incumbent_Share'].min())
+    max_val = max(pred_df['Predicted_Incumbent_Share'].max(), pred_df['Actual_Incumbent_Share'].max())
+    plt.plot([min_val, max_val], [min_val, max_val], color='green', linestyle='--', 
+            label='Line of Perfect Fit', zorder=1)
+
+    # Add labels and title.
+    plt.xlabel('Predicted Incumbent Share')
+    plt.ylabel('Actual Incumbent Share')
+    plt.title('Actual vs Predicted Incumbent Share in Presidential Elections')
+    plt.legend()
+    plt.grid(True, linestyle=':', alpha=0.7)
+
+    # Ensure the aspect ratio is equal.
+    plt.gca().set_aspect('equal', adjustable='box')
+
+    # Save the plot.
+    plt.tight_layout()
+    plt.savefig('results/incumbent_share_prediction_plot.png', dpi=300)
+    plt.close()
+
+
+def process_polling_averages(old_polling_data: str,
+                             recent_polling_data: str) -> pd.DataFrame:
+    """
+    Process polling data for the model.
+
+    Args:
+        old_polling_data (str):
+            Path to the old polling data.
+        recent_polling_data (str):
+            Path to the recent polling data.
+
+    Returns:
+        pd.DataFrame:
+            Processed polling data.
+    """
+
+    # Load in the polling data.
+    old_polling = pd.read_csv(old_polling_data, parse_dates=['modeldate', 'election_date'], 
+                     usecols=['cycle', 'state', 'modeldate', 'candidate_name', 'pct_estimate', 'election_date'])
+    recent_polling = pd.read_csv(recent_polling_data, parse_dates=['modeldate'], usecols=['cycle', 'state', 'modeldate', 'candidate_name', 'pct_estimate'])
+
+    # Combine the data.
+    recent_polling['election_date'] = '11/3/2020'
+    recent_polling['election_date'] = pd.to_datetime(recent_polling['election_date'])
+    polling_data = pd.concat([old_polling, recent_polling])
+
+    # Keep only the national polling.
+    polling_data = polling_data[polling_data['state'] == 'National'].drop(columns=['state'])
+
+    # Define the mapping of incumbents and challengers.
+    candidate_mapping = {
+        1968: {"Incumbent": "Hubert Humphrey, Jr.", "Challenger": "Richard M. Nixon"},
+        1972: {"Incumbent": "Richard M. Nixon", "Challenger": "George S. McGovern"},
+        1976: {"Incumbent": "Gerald R. Ford", "Challenger": "Jimmy Carter"},
+        1980: {"Incumbent": "Jimmy Carter", "Challenger": "Ronald Reagan"},
+        1984: {"Incumbent": "Ronald Reagan", "Challenger": "Walter F. Mondale"},
+        1988: {"Incumbent": "George Bush", "Challenger": "Michael S. Dukakis"},
+        1992: {"Incumbent": "George Bush", "Challenger": "Bill Clinton"},
+        1996: {"Incumbent": "Bill Clinton", "Challenger": "Bob Dole"},
+        2000: {"Incumbent": "Al Gore", "Challenger": "George W. Bush"},
+        2004: {"Incumbent": "George W. Bush", "Challenger": "John Kerry"},
+        2008: {"Incumbent": "John McCain", "Challenger": "Barack Obama"},
+        2012: {"Incumbent": "Barack Obama", "Challenger": "Mitt Romney"},
+        2016: {"Incumbent": "Hillary Rodham Clinton", "Challenger": "Donald Trump"},
+        2020: {"Incumbent": "Donald Trump", "Challenger": "Joseph R. Biden Jr."}
+    }
+
+    # Function to assign role (Incumbent or Challenger) based on cycle and candidate name.
+    def assign_role(row):
+        mapping = candidate_mapping.get(row['cycle'])
+        if mapping:
+            if row['candidate_name'] == mapping['Incumbent']:
+                return 'Incumbent'
+            elif row['candidate_name'] == mapping['Challenger']:
+                return 'Challenger'
+        return 'Other'
+
+    # Apply the role assignment.
+    polling_data['role'] = polling_data.apply(assign_role, axis=1)
+
+    # Filter out 'Other' candidates.
+    polling_data = polling_data[polling_data['role'] != 'Other']
+
+    # Pivot the dataframe.
+    polling_data_pivoted = polling_data.pivot_table(
+        index=['cycle', 'modeldate', 'election_date'],
+        columns='role',
+        values='pct_estimate',
+        aggfunc='first'
+    ).reset_index()
+
+    # Rename columns.
+    polling_data_pivoted = polling_data_pivoted.rename(columns={
+        'Incumbent': 'incumbent_pct',
+        'Challenger': 'challenger_pct'
+    })
+
+    # Ensure all required columns are present.
+    required_columns = ['cycle', 'modeldate', 'election_date', 'incumbent_pct', 'challenger_pct']
+    for col in required_columns:
+        if col not in polling_data_pivoted.columns:
+            polling_data_pivoted[col] = None
+
+    # Select and order the columns.
+    polling_data_final = polling_data_pivoted[required_columns]
+
+    # Return the processed polling data.
+    return polling_data_final
+
+
+def blend_polling_and_fundamentals(polling_averages: pd.DataFrame,
+                                   fundamentals: str) -> None:
+    """
+    Blend polling and fundamental data to predict incumbent vote share.
+
+    Args:
+        polling_averages (pd.DataFrame):
+            Processed polling data.
+        fundamentals (str):
+            Path to the fundamental data.
+
+    Returns:
+        None.
+    """
+
+    # Load in the fundamental data.
+    fundamental_data = pd.read_csv(fundamentals)
+
+    # Calculate time to the election.
+    polling_averages['days_to_election'] = (polling_averages['election_date'] - polling_averages['modeldate']).dt.days
+
+    # Merge polling data with fundamental data.
+    merged_data = pd.merge(polling_averages, 
+                           fundamental_data[['Actual_Incumbent_Share', 'Predicted_Incumbent_Share', 'Year']], 
+                           left_on='cycle', right_on='Year')
     
-    result = minimize(objective_function, initial_params, method='L-BFGS-B', bounds=bounds)
-    
-    optimized_params = result.x
-    
-    # Calculate R-squared
-    predictions = model_function(optimized_params)
-    actual = data['Incumbent_Share'].values
-    ss_total = np.sum((actual - np.mean(actual)) ** 2)
-    ss_residual = np.sum((actual - predictions) ** 2)
-    r_squared = 1 - (ss_residual / ss_total)
-    
-    return optimized_params, r_squared
+    # Calculate incumbent vote share from polls.
+    merged_data['poll_incumbent_vote_share'] = merged_data['incumbent_pct'] / (merged_data['incumbent_pct'] + merged_data['challenger_pct'])
+
+    # Create a list to store the function parameters.
+    function_parameters = []
+
+    # Iterate over each election cycle.
+    for year in [2000, 2004, 2008, 2012, 2016, 2020]:
+
+        # only get data when the cycle is before 2000.
+        merged_data = merged_data[merged_data['cycle'] < year]
+
+        # Initialize DataFrame to store optimized weights.
+        time_periods = sorted(merged_data['days_to_election'].unique())
+        optimized_weights = pd.DataFrame(index=time_periods, columns=['poll_weight', 'fundamental_weight', 'rmse'])
+
+        # Optimize weights for each time period.
+        for time in time_periods:
+
+            # Get the data for the current time period.
+            time_slice = merged_data[merged_data['days_to_election'] <= time]
+            min_error = np.inf
+            best_i = 0
+            
+            # Iterate over all possible poll weights.
+            for i in range(0, 101):
+
+                # Calculate the blended vote share.
+                poll_weight = i / 100
+                fundamental_weight = 1 - poll_weight
+                blended_vote_share = (poll_weight * time_slice['poll_incumbent_vote_share'] + 
+                                    fundamental_weight * time_slice['Predicted_Incumbent_Share'])
+                
+                # Calculate the RMSE.
+                rmse = np.sqrt(np.mean((time_slice['Actual_Incumbent_Share'] - blended_vote_share) ** 2))
+                
+                # Update the minimum error and best poll weight.
+                if rmse < min_error:
+                    min_error = rmse
+                    best_i = i
+            
+            # Save the optimized weights and RMSE.
+            optimized_weights.loc[time, 'poll_weight'] = best_i / 100
+            optimized_weights.loc[time, 'fundamental_weight'] = 1 - (best_i / 100)
+            optimized_weights.loc[time, 'rmse'] = min_error
+
+        # Get the first and last optimized weights and their respctive days to election.
+        first_optimized_weights = optimized_weights.iloc[0]['fundamental_weight']
+        last_optimized_weights = optimized_weights.iloc[-1]['fundamental_weight']
+
+        # Define the exponential function.
+        A = (last_optimized_weights - first_optimized_weights) / (np.exp(0.01 * max(time_periods)) - 1)
+        B = 0.01
+        C = first_optimized_weights - A
+
+        # Append the function parameters to the list.
+        function_parameters.append({
+            'Year': year,
+            'A': A,
+            'B': B,
+            'C': C
+        })
+
+    # Save the function parameters.
+    function_parameters = pd.DataFrame(function_parameters)
+    function_parameters.to_csv('results/function_parameters.csv', index=False)
 
 
 if __name__ == '__main__':
-    processed_economic_data = process_economic_data(gdp_data='raw_data/GDPC1.csv',
-                                                    employment_data='raw_data/UNRATE.csv',
-                                                    income_monthly_data='raw_data/A229RX0.csv',
-                                                    income_quarterly_data='raw_data/A229RX0Q048SBEA.csv',
-                                                    inflation_monthly_data='raw_data/PCEPILFE.csv',
-                                                    inflation_quarterly_data='raw_data/PCECTPI.csv',
-                                                    stock_market_data='raw_data/F-F_Research_Data_Factors 3.csv')
-    composite_economic_index = create_composite_economic_index(processed_economic_data)
-    data, economic_windows = aggregate_fundamental_data(economic_data=composite_economic_index,
-                                incumbency_data='raw_data/incumbency.csv',
-                                approval_data='raw_data/approval.csv',
-                                election_results='raw_data/election_results.csv')
-    run_regression(data=data, economic_windows=economic_windows)
+    # processed_economic_data = process_economic_data(gdp_data='raw_data/GDPC1.csv',
+    #                                                 income_monthly_data='raw_data/A229RX0.csv',
+    #                                                 income_quarterly_data='raw_data/A229RX0Q048SBEA.csv')
+    # composite_economic_index = create_composite_economic_index(processed_economic_data)
+    # data = aggregate_fundamental_data(economic_data=composite_economic_index,
+    #                                   incumbency_data='raw_data/incumbency.csv',
+    #                                   approval_data='raw_data/approval.csv',
+    #                                   election_results='raw_data/election_results.csv')
+    # run_regression(data=data)
+    polling_averages = process_polling_averages(old_polling_data='raw_data/pres_pollaverages_1968-2016.csv',
+                                                recent_polling_data='raw_data/presidential_poll_averages_2020.csv')
+    blend_polling_and_fundamentals(polling_averages=polling_averages,
+                                   fundamentals='results/predictions_and_actuals.csv')
