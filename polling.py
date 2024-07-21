@@ -270,54 +270,56 @@ def process_general_election_polling(filename: str, candidates: List[str], year:
     # Format the polling data.
     formatted_data = format_general_election_polling(filename)
 
-    # Define the system prompt.
-    system_prompt = create_system_prompt(candidates, year)
+    print(formatted_data)
 
-    # Create a list to store the results.
-    results = []
+    # # Define the system prompt.
+    # system_prompt = create_system_prompt(candidates, year)
 
-    # Iterate through the formatted data in batches.
-    for i in range(0, len(formatted_data), batch_size):
+    # # Create a list to store the results.
+    # results = []
 
-        # Get the current batch of data.
-        batch = formatted_data[i:i+batch_size]
+    # # Iterate through the formatted data in batches.
+    # for i in range(0, len(formatted_data), batch_size):
 
-        # Convert the batch to a JSON string.
-        llm_input = json.dumps(batch)
+    #     # Get the current batch of data.
+    #     batch = formatted_data[i:i+batch_size]
 
-        # Call the Gemini Flash API.
-        response = call_gemini_flash(llm_input, system_prompt)
+    #     # Convert the batch to a JSON string.
+    #     llm_input = json.dumps(batch)
 
-        # Parse the JSON response and extend the results.
-        try:
-            parsed_response = json.loads(response)
-            if isinstance(parsed_response, list):
-                results.extend(parsed_response)
-            else:
-                results.append(parsed_response)
-        except json.JSONDecodeError:
-            print(f"Failed to parse JSON response: {response}")
+    #     # Call the Gemini Flash API.
+    #     response = call_gemini_flash(llm_input, system_prompt)
 
-    # Flatten the results.
-    flattened_data = []
-    for item in results:
-        flattened_item = {
-            "questionId": item["questionId"],
-            "validPoll": item["validPoll"]
-        }
-        flattened_item.update(item["results"])
-        flattened_data.append(flattened_item)
+    #     # Parse the JSON response and extend the results.
+    #     try:
+    #         parsed_response = json.loads(response)
+    #         if isinstance(parsed_response, list):
+    #             results.extend(parsed_response)
+    #         else:
+    #             results.append(parsed_response)
+    #     except json.JSONDecodeError:
+    #         print(f"Failed to parse JSON response: {response}")
 
-    # Create a DataFrame from the flattened data.
-    df = pd.DataFrame(flattened_data)
+    # # Flatten the results.
+    # flattened_data = []
+    # for item in results:
+    #     flattened_item = {
+    #         "questionId": item["questionId"],
+    #         "validPoll": item["validPoll"]
+    #     }
+    #     flattened_item.update(item["results"])
+    #     flattened_data.append(flattened_item)
 
-    # Merge the polling data.
-    merged_df = merge_general_election_polling(filename, df)
+    # # Create a DataFrame from the flattened data.
+    # df = pd.DataFrame(flattened_data)
 
-    # Save the merged DataFrame to a CSV file.
-    merged_df.to_csv(f'{year}_processed.csv', index=False)
+    # # Merge the polling data.
+    # merged_df = merge_general_election_polling(filename, df)
+
+    # # Save the merged DataFrame to a CSV file.
+    # merged_df.to_csv(f'{year}_processed.csv', index=False)
 
 
 if __name__ == "__main__":
-    # process_general_election_polling('new_data/polling/1936_roosevelt_landon.csv', ['Franklin D. Roosevelt', 'Alf Landon'], 1936)
-    process_general_election_polling('new_data/polling/1940_roosevelt_willkie.csv', ['Franklin D. Roosevelt', 'Wendell Willkie'], 1940)
+    process_general_election_polling('new_data/polling/1936_roosevelt_landon.csv', ['Franklin D. Roosevelt', 'Alf Landon'], 1936)
+    # process_general_election_polling('new_data/polling/1940_roosevelt_willkie.csv', ['Franklin D. Roosevelt', 'Wendell Willkie'], 1940)

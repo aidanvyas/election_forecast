@@ -1,95 +1,69 @@
 import tkinter as tk
 from tkinter import ttk
-import pandas as pd
+from election_forecast.process_polls import prepare_data_for_gui
 
-class SimplePollDataReviewGUI:
-    def __init__(self, master, old_file, new_file):
+class PollViewerApp:
+    def __init__(self, master):
         self.master = master
-        self.master.title("Simplified Polling Data Review")
-        self.master.geometry("800x600")
+        self.master.title("Poll Viewer")
+        self.master.geometry("600x400")
 
-        self.old_df = pd.read_csv(old_file)
-        self.new_df = pd.read_csv(new_file)
-
-        self.question_ids = self.old_df['QuestionID'].unique().tolist()
+        self.polls = prepare_data_for_gui('raw_data/polling/1936_roosevelt_landon.csv', ['Franklin D. Roosevelt', 'Alf Landon'], 1936, 10)
         self.current_index = 0
 
         self.create_widgets()
         self.update_display()
 
+        # Bind arrow keys
+        self.master.bind('<Left>', lambda event: self.previous_poll())
+        self.master.bind('<Right>', lambda event: self.next_poll())
+
     def create_widgets(self):
-        # Question Text
-        self.question_text = tk.Text(self.master, height=3, wrap=tk.WORD)
-        self.question_text.pack(pady=10, padx=10, fill=tk.X)
+        self.frame = ttk.Frame(self.master, padding="10")
+        self.frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-        # Old Data Frame
-        self.old_data_frame = ttk.LabelFrame(self.master, text="Original Data")
-        self.old_data_frame.pack(pady=10, padx=10, fill=tk.BOTH, expand=True)
+        self.question_text = tk.Text(self.frame, wrap=tk.WORD, height=4, width=60)
+        self.question_text.grid(row=0, column=0, columnspan=2, pady=10)
 
-        # New Data Frame
-        self.new_data_frame = ttk.LabelFrame(self.master, text="Processed Data")
-        self.new_data_frame.pack(pady=10, padx=10, fill=tk.BOTH, expand=True)
+        self.responses_text = tk.Text(self.frame, wrap=tk.WORD, height=10, width=60)
+        self.responses_text.grid(row=1, column=0, columnspan=2, pady=10)
 
-        # Navigation and Progress
-        nav_frame = ttk.Frame(self.master)
-        nav_frame.pack(pady=10)
+        self.validity_label = ttk.Label(self.frame, text="")
+        self.validity_label.grid(row=2, column=0, columnspan=2, pady=10)
 
-        self.prev_button = ttk.Button(nav_frame, text="Previous", command=self.previous_question)
-        self.prev_button.pack(side=tk.LEFT, padx=5)
+        self.prev_button = ttk.Button(self.frame, text="Previous", command=self.previous_poll)
+        self.prev_button.grid(row=3, column=0, pady=10)
 
-        self.progress_label = ttk.Label(nav_frame, text="")
-        self.progress_label.pack(side=tk.LEFT, padx=20)
-
-        self.next_button = ttk.Button(nav_frame, text="Next", command=self.next_question)
-        self.next_button.pack(side=tk.LEFT, padx=5)
+        self.next_button = ttk.Button(self.frame, text="Next", command=self.next_poll)
+        self.next_button.grid(row=3, column=1, pady=10)
 
     def update_display(self):
-        current_question_id = self.question_ids[self.current_index]
+        poll = self.polls[self.current_index]
+        
+        self.question_text.delete('1.0', tk.END)
+        self.question_text.insert(tk.END, f"Question: {poll['QuestionText']}\n")
+        self.question_text.insert(tk.END, f"Date: {poll['BegDate']} - {poll['EndDate']}")
 
-        # Clear previous data
-        for widget in self.old_data_frame.winfo_children():
-            widget.destroy()
-        for widget in self.new_data_frame.winfo_children():
-            widget.destroy()
+        self.responses_text.delete('1.0', tk.END)
+        for response in poll['Responses']:
+            self.responses_text.insert(tk.END, f"{response['ResponseText']}: {response['ResponsePct']}%\n")
 
-        # Update Question Text
-        question_row = self.old_df[self.old_df['QuestionID'] == current_question_id].iloc[0]
-        self.question_text.delete(1.0, tk.END)
-        self.question_text.insert(tk.END, question_row['QuestionTxt'])
+        validity = "Valid" if poll['isValid'] else "Invalid"
+        self.validity_label.config(text=f"Validity: {validity}")
 
-        # Update Old Data
-        old_rows = self.old_df[self.old_df['QuestionID'] == current_question_id]
-        for _, row in old_rows.iterrows():
-            ttk.Label(self.old_data_frame, text=f"{row['RespTxt']}: {row['RespPct']}%").pack(anchor="w")
-
-        # Update New Data
-        new_row = self.new_df[self.new_df['QuestionID'] == current_question_id].iloc[0]
-        study_note_index = new_row.index.get_loc('StudyNote')
-        for col in new_row.index[study_note_index + 1:]:
-            ttk.Label(self.new_data_frame, text=f"{col}: {new_row[col]}").pack(anchor="w")
-
-        # Update Progress Label
-        self.progress_label.config(text=f"{self.current_index + 1} / {len(self.question_ids)} polls viewed")
-
-    def previous_question(self):
+    def previous_poll(self):
         if self.current_index > 0:
             self.current_index -= 1
             self.update_display()
 
-    def next_question(self):
-        if self.current_index < len(self.question_ids) - 1:
+    def next_poll(self):
+        if self.current_index < len(self.polls) - 1:
             self.current_index += 1
             self.update_display()
         else:
             self.master.quit()
 
-def main():
-    old_file = "new_data/polling/1940_roosevelt_willkie.csv"
-    new_file = "1940_processed.csv"
-
-    root = tk.Tk()
-    app = SimplePollDataReviewGUI(root, old_file, new_file)
-    root.mainloop()
-
 if __name__ == "__main__":
-    main()
+    root = tk.Tk()
+    app = PollViewerApp(root)
+    root.mainloop()
