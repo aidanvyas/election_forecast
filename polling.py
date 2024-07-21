@@ -97,6 +97,9 @@ def create_system_prompt(candidates: List[str], year: int) -> str:
     - If a candidate is not mentioned in a poll, assign them 0%.
     - Report percentages exactly as given in the poll data, without modifications.
     - Do not adjust or normalize percentages. Totals may not add up to 100% due to rounding. Preserve this, especially for the "Other / Undecided" category.
+    - Treat asterisks (*) as values less than 0.5%. When encountering an asterisk (*), assign a value of 0% to that response.
+    - The "Other / Undecided" category should be the sum of all responses not explicitly listed as main candidates, including those marked with asterisks.
+    - The total of all percentages, including "Other / Undecided", may not always add up to 100% due to rounding in the original data. This is expected and should be preserved.
 
     Your output should be a JSON array of objects, each with the following structure:
     {{
@@ -135,22 +138,22 @@ def create_system_prompt(candidates: List[str], year: int) -> str:
 
     Example 2:
     Input:
-    {{'QuestionID': 'USGALLUP.091336.R01', 'QuestionText': 'If the presidential election were held today, for whom would you vote?', 'BegDate': '09/10/1936', 'EndDate': '09/15/1936', 'Responses': [{{'ResponseText': 'Roosevelt', 'ResponsePct': '52'}}, {{'ResponseText': 'Landon', 'ResponsePct': '41'}}, {{'ResponseText': 'Lemke', 'ResponsePct': '4'}}, {{'ResponseText': 'Thomas', 'ResponsePct': '2'}}, {{'ResponseText': 'Others', 'ResponsePct': '1'}}]}}
+    {{'QuestionID': 'USGALLUP.100436.R06', 'QuestionText': 'Which candidate do you prefer for President?', 'Responses': [{{'ResponseText': 'Roosevelt', 'ResponsePct': '50'}}, {{'ResponseText': 'Landon', 'ResponsePct': '44'}}, {{'ResponseText': 'Lemke', 'ResponsePct': '4'}}, {{'ResponseText': 'Thomas', 'ResponsePct': '1'}}, {{'ResponseText': 'Others', 'ResponsePct': '*'}}]}}
 
     Output:
     [
     {{
-        "questionId": "USGALLUP.091336.R01",
+        "questionId": "USGALLUP.100436.R06",
         "validPoll": true,
         "results": {{
-        "Franklin D. Roosevelt": 52,
-        "Alf Landon": 41,
-        "Other / Undecided": 7
+        "Franklin D. Roosevelt": 50,
+        "Alf Landon": 44,
+        "Other / Undecided": 5
         }}
     }}
     ]
 
-    Remember to analyze each poll individually and provide results in the specified JSON format. Ensure that you correctly identify valid polls and accurately report the percentages for each candidate and the "Other / Undecided" category.
+    Remember to analyze each poll individually and provide results in the specified JSON format. Ensure that you correctly identify valid polls and accurately report the percentages for each candidate and the "Other / Undecided" category. When calculating the "Other / Undecided" category, include all responses not explicitly listed as main candidates, even if their individual percentages are 0 or marked with an asterisk (*). The sum of all percentages, including "Other / Undecided", should match the sum of the original data, even if it doesn't equal 100%.
     """
     return system_prompt
 
@@ -244,7 +247,7 @@ def merge_general_election_polling(filename: str, new_df: pd.DataFrame) -> pd.Da
     return result_df
 
 
-def process_general_election_polling(filename: str, candidates: List[str], year: int, batch_size: int = 10):
+def process_general_election_polling(filename: str, candidates: List[str], year: int, batch_size: int = 100):
     """
     Processes general election polling data and generates system prompts for the task.
 
