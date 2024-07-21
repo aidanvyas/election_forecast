@@ -247,7 +247,7 @@ def merge_general_election_polling(filename: str, new_df: pd.DataFrame) -> pd.Da
     return result_df
 
 
-def process_general_election_polling(filename: str, candidates: List[str], year: int, batch_size: int = 100):
+def process_general_election_polling(filename: str, candidates: List[str], year: int, batch_size: int = 10):
     """
     Processes general election polling data and generates system prompts for the task.
 
