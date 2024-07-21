@@ -66,32 +66,30 @@ def format_general_election_polling(filename: str) -> List[Dict]:
 def create_system_prompt(candidates: List[str], year: int) -> str:
     """
     Creates a system prompt for the general election polling task.
-    
+
     Args:
         candidates (List[str]): A list of the main candidates in the election.
         year (int): The year of the election.
-        
+
     Returns:
         str: A system prompt for the general election polling task.
     """
-
-    # Create a string representation of the candidate results.
-    candidate_results = ", ".join([f'"{candidate}": number' for candidate in candidates])
-    
-    system_prompt = f"""You are a polling analyst for the 1936 presidential election. Your task is to analyze multiple polls and provide structured results. Here's what you need to know:
+    candidates_list = ', '.join(candidates)
+    candidates_json = ', '.join([f'"{candidate}": number' for candidate in candidates])
+    system_prompt = f"""You are a polling analyst for the {year} presidential election. Your task is to analyze multiple polls and provide structured results. Here's what you need to know:
 
     <candidates>
-    Franklin D. Roosevelt, Alf Landon
+    {candidates_list}
     </candidates>
 
-    These are the main candidates for the 1936 presidential election. Keep them in mind as you analyze the polls.
+    These are the main candidates for the {year} presidential election. Keep them in mind as you analyze the polls.
 
     Your job is to:
 
     1. Determine if each poll is valid:
-    - A valid poll asks voters who they would vote for in the 1936 presidential election.
+    - A valid poll asks voters who they would vote for in the {year} presidential election.
     - Exclude polls that ask about which candidate will win, has received more favorable media coverage, or is trusted on certain issues.
-    - Focus solely on polls about voting intentions for the 1936 presidential election.
+    - Focus solely on polls about voting intentions for the {year} presidential election.
 
     2. For valid polls, extract and aggregate voting percentages:
     - Extract voting percentages for the main candidates listed above.
@@ -101,22 +99,59 @@ def create_system_prompt(candidates: List[str], year: int) -> str:
     - Do not adjust or normalize percentages. Totals may not add up to 100% due to rounding. Preserve this, especially for the "Other / Undecided" category.
 
     Your output should be a JSON array of objects, each with the following structure:
-    {
+    {{
     "questionId": string,
     "validPoll": boolean,
-    "results": {
-        "Franklin D. Roosevelt": number,
-        "Alf Landon": number,
+    "results": {{
+        {candidates_json},
         "Other / Undecided": number
-        }
-    }
+        }}
+    }}
+
+    Here are two examples to guide you:
+
+    Example 1:
+    Input:
+    {{'QuestionID': 'USGALLUP.090636.R01', 'QuestionText': 'Whom do you prefer for President?', 'BegDate': '08/24/1936', 'EndDate': '08/29/1936', 'Responses': [{{'ResponseText': 'Roosevelt', 'ResponsePct': '49'}}, {{'ResponseText': 'Landon', 'ResponsePct': '44'}}, {{'ResponseText': 'Lemke', 'ResponsePct': '5'}}, {{'ResponseText': 'Thomas', 'ResponsePct': '1'}}, {{'ResponseText': 'Others', 'ResponsePct': '*'}}]}}
+    {{'QuestionID': 'USGALLUP.36-053.Q4B', 'QuestionText': 'WHICH (1936 PRESIDENTIAL) CANDIDATE DO YOU THINK WILL WIN IN YOUR STATE?', 'BegDate': '09/28/1936', 'EndDate': '10/2/1936', 'Responses': [{{'ResponseText': 'LANDON', 'ResponsePct': '36'}}, {{'ResponseText': 'ROOSEVELT', 'ResponsePct': '63'}}, {{'ResponseText': 'LEMKE', 'ResponsePct': '1'}}]}}
+
+    Output:
+    [
+    {{
+        "questionId": "USGALLUP.090636.R01",
+        "validPoll": true,
+        "results": {{
+        "Franklin D. Roosevelt": 49,
+        "Alf Landon": 44,
+        "Other / Undecided": 6
+        }}
+    }},
+    {{
+        "questionId": "USGALLUP.36-053.Q4B",
+        "validPoll": false,
+        "results": {{}}
+    }}
+    ]
+
+    Example 2:
+    Input:
+    {{'QuestionID': 'USGALLUP.091336.R01', 'QuestionText': 'If the presidential election were held today, for whom would you vote?', 'BegDate': '09/10/1936', 'EndDate': '09/15/1936', 'Responses': [{{'ResponseText': 'Roosevelt', 'ResponsePct': '52'}}, {{'ResponseText': 'Landon', 'ResponsePct': '41'}}, {{'ResponseText': 'Lemke', 'ResponsePct': '4'}}, {{'ResponseText': 'Thomas', 'ResponsePct': '2'}}, {{'ResponseText': 'Others', 'ResponsePct': '1'}}]}}
+
+    Output:
+    [
+    {{
+        "questionId": "USGALLUP.091336.R01",
+        "validPoll": true,
+        "results": {{
+        "Franklin D. Roosevelt": 52,
+        "Alf Landon": 41,
+        "Other / Undecided": 7
+        }}
+    }}
+    ]
 
     Remember to analyze each poll individually and provide results in the specified JSON format. Ensure that you correctly identify valid polls and accurately report the percentages for each candidate and the "Other / Undecided" category.
-
     """
-
-
-    # Return the system prompt.
     return system_prompt
 
 
