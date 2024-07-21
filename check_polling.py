@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import pandas as pd
+import numpy as np
 from tkinter import font as tkfont
 from ttkthemes import ThemedTk
 import matplotlib.pyplot as plt
@@ -184,8 +185,9 @@ class PollDataReviewGUI:
     def create_pie_chart(self):
         fig, ax = plt.subplots(figsize=(4, 4))
         data = self.new_df.iloc[self.current_index]
-        labels = [col for col in data.index if col not in ['QuestionID', 'validPoll', 'StudyNote']]
-        sizes = [data[label] for label in labels]
+        numeric_data = data._get_numeric_data()
+        labels = [col for col in numeric_data.index if col not in ['QuestionID', 'validPoll']]
+        sizes = [numeric_data[label] for label in labels if pd.notnull(numeric_data[label])]
         ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
         ax.axis('equal')
         return fig
