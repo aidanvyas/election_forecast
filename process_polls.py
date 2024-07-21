@@ -181,90 +181,137 @@ def process_polls_isValid(formatted_data: List[Dict], candidates: List[str], yea
     # Return the processed polls DataFrame.
     return processed_df
     
-
 def check_polls_isValid(raw_filename: str, processed_filename: str):
     """
     Create a GUI to check the validity of general election polls.
+
+    Args:
+        raw_filename (str): The path to the raw polling data CSV file.
+        processed_filename (str): The path to the processed polling data CSV file
+
+    Returns:
+        None
     """
+
     class PollViewerApp:
+
+        # Initialize the PollViewerApp class.
         def __init__(self, master, raw_data, processed_data):
+
+            # Initialize the main window.
             self.master = master
             self.master.title("Poll Validity Checker")
             self.master.geometry("600x400")
 
+            # Initialize the polling data and group by question ID.
             self.raw_data = raw_data
             self.processed_data = processed_data
+            self.grouped_data = raw_data.groupby('QuestionID')
+            self.question_ids = list(self.grouped_data.groups.keys())
             self.current_index = 0
 
+            # Create the GUI widgets.
             self.create_widgets()
             self.update_display()
 
-            # Bind arrow keys
+            # Bind keyboard events for navigation.
             self.master.bind('<Left>', lambda event: self.previous_poll())
             self.master.bind('<Right>', lambda event: self.next_poll())
 
+        # Create the GUI widgets.
         def create_widgets(self):
+
+            # Create the main frame and widgets.
             self.frame = ttk.Frame(self.master, padding="10")
             self.frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
+            # Create the question and responses text widgets.
             self.question_text = tk.Text(self.frame, wrap=tk.WORD, height=4, width=60)
             self.question_text.grid(row=0, column=0, columnspan=2, pady=10)
 
+            # Create the responses text widget.
             self.responses_text = tk.Text(self.frame, wrap=tk.WORD, height=10, width=60)
             self.responses_text.grid(row=1, column=0, columnspan=2, pady=10)
 
+            # Create the validity label and navigation buttons.
             self.validity_label = ttk.Label(self.frame, text="")
             self.validity_label.grid(row=2, column=0, columnspan=2, pady=10)
 
+            # Create the progress label and navigation buttons.
             self.prev_button = ttk.Button(self.frame, text="Previous", command=self.previous_poll)
             self.prev_button.grid(row=3, column=0, pady=10)
 
+            # Create the progress label and navigation buttons.
             self.next_button = ttk.Button(self.frame, text="Next", command=self.next_poll)
             self.next_button.grid(row=3, column=1, pady=10)
 
-        def update_display(self):
-            question = self.raw_data.iloc[self.current_index]
-            processed = self.processed_data[self.processed_data['QuestionID'] == question['QuestionID']].iloc[0]
+            # Create the progress label and navigation buttons.
+            self.progress_label = ttk.Label(self.master, text="")
+            self.progress_label.grid(row=4, column=0, columnspan=2, pady=10)
 
+        # Update the display with the current poll data.
+        def update_display(self):
+
+            # Get the question data for the current index.
+            question_id = self.question_ids[self.current_index]
+            question_group = self.grouped_data.get_group(question_id)
+            question = question_group.iloc[0]
+            processed = self.processed_data[self.processed_data['QuestionID'] == question_id].iloc[0]
+
+            # Update the question and responses text widgets.
             self.question_text.delete('1.0', tk.END)
-            self.question_text.insert(tk.END, f"Question ID: {question['QuestionID']}\n")
+            self.question_text.insert(tk.END, f"Question ID: {question_id}\n")
             self.question_text.insert(tk.END, f"Question: {question['QuestionTxt']}\n")
 
+            # Update the responses text widget.
             self.responses_text.delete('1.0', tk.END)
-            for i in range(1, 11):  # Assuming max 10 responses
-                resp_txt = question.get(f'RespTxt{i}', '')
-                resp_pct = question.get(f'RespPct{i}', '')
-                if resp_txt and resp_pct:
-                    self.responses_text.insert(tk.END, f"{resp_txt}: {resp_pct}%\n")
+            for _, row in question_group.iterrows():
+                response_columns = [col for col in row.index if col.startswith('RespTxt')]
+                for col in response_columns:
+                    resp_txt = row[col]
+                    resp_pct_col = col.replace('RespTxt', 'RespPct')
+                    resp_pct = row[resp_pct_col] if resp_pct_col in row else None
+                    if pd.notna(resp_txt) and pd.notna(resp_pct):
+                        self.responses_text.insert(tk.END, f"{resp_txt}: {resp_pct}%\n")
+                    elif pd.notna(resp_txt):
+                        self.responses_text.insert(tk.END, f"{resp_txt}: N/A\n")
 
+            # Update the validity label.
             validity = "Valid" if processed['isValid'] else "Invalid"
             self.validity_label.config(text=f"Validity: {validity}")
 
+            # Update the progress label.
+            self.progress_label.config(text=f"Poll {self.current_index + 1} / {len(self.question_ids)}")
+
+        # Navigate to the previous poll.
         def previous_poll(self):
             if self.current_index > 0:
                 self.current_index -= 1
-                self.update_display()
+            else:
+                self.current_index = len(self.question_ids) - 1
+            self.update_display()
 
+        # Navigate to the next poll.
         def next_poll(self):
-            if self.current_index < len(self.raw_data) - 1:
+            if self.current_index < len(self.question_ids) - 1:
                 self.current_index += 1
                 self.update_display()
             else:
                 self.master.quit()
 
-    # Read in the files
+    # Load the raw and processed polling data.
     raw_data = pd.read_csv(raw_filename)
     processed_data = pd.read_csv(processed_filename)
 
-    # Create and run the GUI
+    # Create the main Tkinter application.
     root = tk.Tk()
     app = PollViewerApp(root, raw_data, processed_data)
     root.mainloop()
 
 
 def main():
-    # formatted_data = format_polls('raw_data/polling/1936_roosevelt_landon.csv')
-    # process_polls_isValid(formatted_data, ['Franklin D. Roosevelt', 'Alf Landon'], 1936, 10)
+    formatted_data = format_polls('raw_data/polling/1936_roosevelt_landon.csv')
+    process_polls_isValid(formatted_data, ['Franklin D. Roosevelt', 'Alf Landon'], 1936, 10)
     check_polls_isValid('raw_data/polling/1936_roosevelt_landon.csv', 'processed_polls.csv')
 
 
