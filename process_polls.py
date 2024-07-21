@@ -310,9 +310,18 @@ def check_polls_isValid(raw_filename: str, processed_filename: str):
 
 
 def main():
-    formatted_data = format_polls('raw_data/polling/1936_roosevelt_landon.csv')
-    process_polls_isValid(formatted_data, ['Franklin D. Roosevelt', 'Alf Landon'], 1936, 10)
-    check_polls_isValid('raw_data/polling/1936_roosevelt_landon.csv', 'processed_polls.csv')
+    filename = 'raw_data/polling/1936_roosevelt_landon.csv'
+    candidates = ['Franklin D. Roosevelt', 'Alf Landon']
+    year = 1936
+    batch_size = 10
+
+    filename = 'raw_data/polling/1940_roosevelt_willkie.csv'
+    candidates = ['Franklin D. Roosevelt', 'Wendell Willkie']
+    year = 1940
+
+    formatted_data = format_polls(filename)
+    process_polls_isValid(formatted_data, candidates, year, batch_size)
+    check_polls_isValid(filename, "processed_polls.csv")
 
 
 if __name__ == "__main__":
