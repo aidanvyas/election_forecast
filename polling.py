@@ -87,9 +87,15 @@ def create_system_prompt(candidates: List[str], year: int) -> str:
     Your job is to:
 
     1. Determine if each poll is valid:
-    - A valid poll asks voters who they would vote for in the {year} presidential election.
-    - Exclude polls that ask about which candidate will win, has received more favorable media coverage, or is trusted on certain issues.
-    - Focus solely on polls about voting intentions for the {year} presidential election.
+    - A valid poll asks voters directly who they would vote for in the {year} presidential election.
+    - Exclude polls that:
+        a) Ask about which candidate will win
+        b) Ask about favorable media coverage
+        c) Ask about trust on certain issues
+        d) Present hypothetical scenarios or conditions (e.g., "If X happens, who would you vote for?")
+        e) Use leading or biased language that might influence the respondent's answer
+    - Focus solely on polls about current voting intentions for the {year} presidential election with the actual candidates.
+    - Only include straightforward hypothetical matchups based on the actual candidates running in the {year} election (e.g., "If the election were held today, would you vote for Candidate A or Candidate B?")
 
     2. For valid polls, extract and aggregate voting percentages:
     - Extract voting percentages for the main candidates listed above.
@@ -313,5 +319,5 @@ def process_general_election_polling(filename: str, candidates: List[str], year:
 
 
 if __name__ == "__main__":
-    process_general_election_polling('new_data/polling/1936_roosevelt_landon.csv', ['Franklin D. Roosevelt', 'Alf Landon'], 1936)
-    # process_general_election_polling('new_data/polling/1940_roosevelt_willkie.csv', ['Franklin D. Roosevelt', 'Wendell Willkie'], 1940)
+    # process_general_election_polling('new_data/polling/1936_roosevelt_landon.csv', ['Franklin D. Roosevelt', 'Alf Landon'], 1936)
+    process_general_election_polling('new_data/polling/1940_roosevelt_willkie.csv', ['Franklin D. Roosevelt', 'Wendell Willkie'], 1940)
