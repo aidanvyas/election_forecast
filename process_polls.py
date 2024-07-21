@@ -180,7 +180,8 @@ def process_polls_isValid(formatted_data: List[Dict], candidates: List[str], yea
 
     # Return the processed polls DataFrame.
     return processed_df
-    
+
+
 def check_polls_isValid(raw_filename: str, processed_filename: str):
     """
     Create a GUI to check the validity of general election polls.
