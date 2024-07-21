@@ -3,7 +3,6 @@ from tkinter import ttk, messagebox
 import pandas as pd
 import numpy as np
 from tkinter import font as tkfont
-# Note: You may need to install the ttkthemes package using pip install ttkthemes
 from ttkthemes import ThemedTk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -192,6 +191,11 @@ class PollDataReviewGUI:
         ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
         ax.axis('equal')
         return fig
+
+        fig = self.create_pie_chart()
+        canvas = FigureCanvasTkAgg(fig, master=self.processed_frame)
+        canvas.draw()
+        canvas.get_tk_widget().pack()
 
     def previous_question(self):
         if self.current_index > 0:
