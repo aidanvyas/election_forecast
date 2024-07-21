@@ -1,4 +1,0 @@
-QuestionID,RespTxt,RespPct,QuestionTxt,QuestionNote,SubPopulation,ReleaseDate,SurveyOrg,SurveySponsor,SourceDoc,BegDate,EndDate,ExactDates,SampleDesc,SampleSize,VariableName,IntMethod,StudyNote
-USGALLUP.57-588.Q006C,Favorable,74,"IN GENERAL, DO YOU HAVE A FAVORABLE OR UNFAVORABLE OPINION OF THE FORD FOUNDATION?",,,09/4/1957,Gallup Organization,,Gallup Poll (AIPO),08/29/1957,09/4/1957,Y,National Adult,1528,,Face-to-face interview,
-USGALLUP.57-588.Q006C,Unfavorable,3,"IN GENERAL, DO YOU HAVE A FAVORABLE OR UNFAVORABLE OPINION OF THE FORD FOUNDATION?",,,09/4/1957,Gallup Organization,,Gallup Poll (AIPO),08/29/1957,09/4/1957,Y,National Adult,1528,,Face-to-face interview,
-USGALLUP.57-588.Q006C,No opinion,23,"IN GENERAL, DO YOU HAVE A FAVORABLE OR UNFAVORABLE OPINION OF THE FORD FOUNDATION?",,,09/4/1957,Gallup Organization,,Gallup Poll (AIPO),08/29/1957,09/4/1957,Y,National Adult,1528,,Face-to-face interview,
