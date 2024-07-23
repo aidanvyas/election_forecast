@@ -5,15 +5,15 @@ from common import call_gemini_flash
 from check_poll_validity import check_poll_validity
 
 
-def format_polls(filename: str) -> List[Dict]:
+def format_polls(filename: str) -> List[Dict[str, str]]:
     """
-    Formats general election polling data from a CSV file into a list of dictionaries.
+    Formats general election polling data from a CSV file into a JSON string.
 
     Args:
         filename (str): The path to the CSV file containing the polling data.
 
     Returns:
-        List[Dict]: A list of dictionaries containing the formatted polling data.
+        List[Dict[str, str]]: A list of dictionaries containing the formatted polling data.
     """
 
     # Read the polling data from the CSV file.
@@ -298,12 +298,12 @@ def create_polls_isValid_system_prompt(candidates: List[str], year: int) -> str:
     """
 
 
-def process_polls_isValid(formatted_data: List[Dict], candidates: List[str], year: int, batch_size: int) -> pd.DataFrame:
+def process_polls_isValid(formatted_data: List[Dict[str, str]], candidates: List[str], year: int, batch_size: int) -> pd.DataFrame:
     """
     Calls the Gemini Flash API to check the validity of general election polls.
 
     Args:
-        formatted_data (List[Dict]): A list of dictionaries containing the formatted polling data.
+        formatted_data (List[Dict[str, str]]): A list of dictionaries containing the formatted polling data.
         candidates (List[str]): A list of candidate names.
         year (int): The year of the general election.
         batch_size (int): The number of polls to process in each API call.
@@ -318,7 +318,7 @@ def process_polls_isValid(formatted_data: List[Dict], candidates: List[str], yea
     # Initialize an empty list to store the responses from the Gemini Flash API.
     responses = []
 
-    # Iterate over the formatted polling data in batches.
+    # Iterate over the formatted data in batches.
     for i in range(0, len(formatted_data), batch_size):
 
         # Extract a batch of polls from the formatted data.
@@ -332,7 +332,7 @@ def process_polls_isValid(formatted_data: List[Dict], candidates: List[str], yea
 
         # Append the responses to the list.
         responses.extend(response)
-    
+
     # Convert the processed polls list into a DataFrame.
     processed_df = pd.DataFrame(responses)
 
@@ -384,9 +384,18 @@ def main():
 
     formatted_data = format_polls(filename)
     processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
+    merged_df = merge_polls_with_validity(filename, processed_df)
+
+    # print(create_polls_isValid_system_prompt(candidates, year))
+    # print(formatted_data)
+
+    # can we combine these print statments and like write them into a .txt file
+
+
+    # processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
     # merged_df = merge_polls_with_validity(filename, processed_df)
     
-    check_poll_validity(f'processed_data/polling/{filename.split("/")[-1]}_isvalid_llm.csv')
+    # check_poll_validity(f'processed_data/polling/{filename.split("/")[-1]}_isvalid_llm.csv')
 
 
 if __name__ == "__main__":
