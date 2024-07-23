@@ -81,6 +81,7 @@ def create_polls_isValid_system_prompt(candidates: List[str], year: int) -> str:
     4. Have only one response option or no numerical percentages.
     5. Don't include at least two of the specified candidates in the response options.
     6. Have a discrepancy between the candidates mentioned in the question and the response options.
+    7. Have unrealistic (i.e., multiple candidates from the same party running for the same position).
     
     Your output should be a JSON object with the following structure:
     {{
@@ -269,6 +270,95 @@ def create_polls_isValid_system_prompt(candidates: List[str], year: int) -> str:
     - The poll is invalid because the candidates mentioned in the question (a ticket of Roosevelt and Wallace and a ticket of Wallace and McNary) do not match the response options (Roosevelt and Wallace and Willkie and McNary).
     - The poll is valid because unlike the previous example, the candidates mentioned in the question (Willkie and McNary and Roosevelt and Wallace) match the response options.
 
+    Example #3:
+    Input:
+    [
+        {{
+            "QuestionID": "31093632.00012",
+            "QuestionText": "(If the election were held today would you vote for (Thomas) Dewey or (Franklin) Roosevelt?) (If Undecided, ask:) Which way are you leaning at the present time--toward Dewey or Roosevelt?",
+            "Responses": [
+                {{
+                    "ResponseText": "Dewey including leaners",
+                    "ResponsePct": "49"
+                }},
+                {{
+                    "ResponseText": "Roosevelt including leaners",
+                    "ResponsePct": "48"
+                }},
+                {{
+                    "ResponseText": "Undecided",
+                    "ResponsePct": "4"
+                }}
+            ]
+        }},
+        {{
+            "QuestionID": "USGALLUP.42-283.QK08",
+            "QuestionText": "Whom would you like to see elected President of the country in 1944?",
+            "Responses": [
+                {{
+                    "ResponseText": "Anyone but F.D.R. (Franklin Delano Roosevelt)",
+                    "ResponsePct": "1"
+                }},
+                {{
+                    "ResponseText": "Roosevelt if war is still on",
+                    "ResponsePct": "2"
+                }},
+                {{
+                    "ResponseText": "Any Democrat",
+                    "ResponsePct": "2"
+                }},
+                {{
+                    "ResponseText": "Roosevelt, Franklin D.",
+                    "ResponsePct": "20"
+                }},
+                {{
+                    "ResponseText": "Willkie, Wendell",
+                    "ResponsePct": "14"
+                }},
+                {{
+                    "ResponseText": "Dewey, Thomas",
+                    "ResponsePct": "11"
+                }},
+                {{
+                    "ResponseText": "Wallace, Henry",
+                    "ResponsePct": "3"
+                }},
+                {{
+                    "ResponseText": "Bricker, John",
+                    "ResponsePct": "1"
+                }},
+                {{
+                    "ResponseText": "MacArthur",
+                    "ResponsePct": "1"
+                }},
+                {{
+                    "ResponseText": "Other",
+                    "ResponsePct": "5"
+                }},
+                {{
+                    "ResponseText": "No answer",
+                    "ResponsePct": "40"
+                }}
+            ]
+        }}
+    ]
+
+    Output:
+    [
+        {{
+            "questionId": "31093632.00012",
+            "isValid": true
+        }},
+        {{
+            "questionId": "USGALLUP.42-283.QK08",
+            "isValid": false
+        }}
+    ]
+
+    Explanation:
+    - The poll is valid because it directly asks voters who they would vote for -- it's okay that it includes leaners in the response options.
+    - The poll is invalid because it includes multiple candidates from the same party (Wendell Willkie and Thomas Dewey) and (Franklin D. Roosevelt and Henry Wallace) running for the same position.
+
     Analyze the poll data provided and determine if it's valid based on these criteria.
     
     Please take a deep breath, focus on the task at hand, think carefully and methodically about the instructions given, and provide accurate and consistent responses.
@@ -288,7 +378,8 @@ def create_polls_isValid_system_prompt(candidates: List[str], year: int) -> str:
     3. Ask about which candidate is more trustworthy, has better leadership qualities, will handle certain issues better, etc.
     4. Have only one response option or no numerical percentages.
     5. Don't include at least two of the specified candidates in the response options.
-    6. Have a discrepancy between the candidates mentioned in the question and the response options.    
+    6. Have a discrepancy between the candidates mentioned in the question and the response options.
+    7. Have unrealistic (i.e., multiple candidates from the same party running for the same position).    
 
     Your output should be a JSON object with the following structure:
     {{
@@ -362,7 +453,7 @@ def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame) -> pd.D
     merged_df.drop(columns=['questionId'], inplace=True)
 
     # Save the merged DataFrame to a new CSV file.
-    merged_df.to_csv(f'processed_data/polling/{filename.split("/")[-1]}_isvalid_llm.csv', index=False)
+    merged_df.to_csv(f'processed_data/polling/{filename.split("/")[-1][:-4]}_isvalid_llm.csv', index=False)
 
     # Return the merged DataFrame.
     return merged_df
@@ -372,7 +463,7 @@ def main():
     filename = 'raw_data/polling/1936_roosevelt_landon.csv'
     candidates = ['Franklin D. Roosevelt', 'Alf Landon']
     year = 1936
-    batch_size = 100
+    batch_size = 50
 
     filename = 'raw_data/polling/1940_roosevelt_willkie.csv'
     candidates = ['Franklin D. Roosevelt', 'Wendell Willkie']
@@ -382,20 +473,16 @@ def main():
     candidates = ['Franklin D. Roosevelt', 'Thomas E. Dewey']
     year = 1944
 
-    formatted_data = format_polls(filename)
-    processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
-    merged_df = merge_polls_with_validity(filename, processed_df)
+    filename = 'raw_data/polling/2020_trump_biden.csv'
+    candidates = ['Donald Trump', 'Joe Biden']
+    year = 2020
 
-    # print(create_polls_isValid_system_prompt(candidates, year))
-    # print(formatted_data)
-
-    # can we combine these print statments and like write them into a .txt file
-
-
+    # formatted_data = format_polls(filename)
     # processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
     # merged_df = merge_polls_with_validity(filename, processed_df)
+    print(f'processed_data/polling/{filename.split("/")[-1][:-4]}_isvalid_llm.csv')
     
-    # check_poll_validity(f'processed_data/polling/{filename.split("/")[-1]}_isvalid_llm.csv')
+    # check_poll_validity(f'processed_data/polling/{filename.split("/")[-1][:-4]}_isvalid_llm.csv')
 
 
 if __name__ == "__main__":
