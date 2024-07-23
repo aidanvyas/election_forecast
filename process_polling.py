@@ -1,9 +1,9 @@
 import pandas as pd
 import json
+import os
 from typing import List, Dict, Tuple
 from common import call_gemini_flash
 from check_poll_validity import check_poll_validity
-
 
 def format_polls(filename: str) -> List[Dict[str, str]]:
     """
@@ -452,37 +452,53 @@ def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame) -> pd.D
     # Drop the questionId column from the merged DataFrame.
     merged_df.drop(columns=['questionId'], inplace=True)
 
+    # Generate the output filename for LLM-generated results
+    base_filename = os.path.splitext(os.path.basename(filename))[0]
+    output_filename = f'processed_data/polling/{base_filename}_isvalid_llm.csv'
+
     # Save the merged DataFrame to a new CSV file.
-    merged_df.to_csv(f'processed_data/polling/{filename.split("/")[-1][:-4]}_isvalid_llm.csv', index=False)
+    merged_df.to_csv(output_filename, index=False)
 
     # Return the merged DataFrame.
     return merged_df
 
 
+
+
+
 def main():
-    filename = 'raw_data/polling/1936_roosevelt_landon.csv'
-    candidates = ['Franklin D. Roosevelt', 'Alf Landon']
-    year = 1936
-    batch_size = 50
-
-    filename = 'raw_data/polling/1940_roosevelt_willkie.csv'
-    candidates = ['Franklin D. Roosevelt', 'Wendell Willkie']
-    year = 1940
-
-    filename = 'raw_data/polling/1944_roosevelt_dewey.csv'
-    candidates = ['Franklin D. Roosevelt', 'Thomas E. Dewey']
-    year = 1944
-
+    # Hard-coded values
     filename = 'raw_data/polling/2020_trump_biden.csv'
     candidates = ['Donald Trump', 'Joe Biden']
     year = 2020
+    batch_size = 50
 
-    # formatted_data = format_polls(filename)
-    # processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
-    # merged_df = merge_polls_with_validity(filename, processed_df)
-    print(f'processed_data/polling/{filename.split("/")[-1][:-4]}_isvalid_llm.csv')
-    
-    # check_poll_validity(f'processed_data/polling/{filename.split("/")[-1][:-4]}_isvalid_llm.csv')
+    base_filename = os.path.splitext(os.path.basename(filename))[0]
+    llm_filename = f'processed_data/polling/{base_filename}_isvalid_llm.csv'
+    human_filename = f'processed_data/polling/{base_filename}_isvalid_human.csv'
+    final_filename = f'processed_data/polling/{base_filename}_isvalid_final.csv'
+
+    # Format the data
+    formatted_data = format_polls(filename)
+
+    # Comment out the call to the human GUI
+    # from validate_polls_gui import validate_polls
+    # validate_polls(filename)
+
+    # Process polls via LLM
+    processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
+
+    # Call the testing suite
+    # TODO: Import and call the testing suite function here
+    # test_results = run_testing_suite(processed_df)
+
+    # If all checks are correct, merge and save with 'final' suffix
+    # if test_results['all_passed']:
+    merged_df = merge_polls_with_validity(filename, processed_df)
+    merged_df.to_csv(final_filename, index=False)
+    print(f"Final results saved to: {final_filename}")
+    # else:
+    #     print("Testing suite failed. Please review the results.")
 
 
 if __name__ == "__main__":
