@@ -3,7 +3,7 @@ import json
 import os
 from typing import List, Dict, Tuple
 from llm_calls import call_gemini_flash
-from validate_polling_gui import validate_polls
+from validate_polls_gui import validate_polls
 
 def format_polls(filename: str) -> List[Dict[str, str]]:
     """
