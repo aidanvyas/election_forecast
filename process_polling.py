@@ -2,8 +2,8 @@ import pandas as pd
 import json
 import os
 from typing import List, Dict, Tuple
-from common import call_gemini_flash
-from check_poll_validity import check_poll_validity
+from llm_calls import call_gemini_flash
+from validate_polling_gui import validate_polls
 
 def format_polls(filename: str) -> List[Dict[str, str]]:
     """
@@ -463,30 +463,35 @@ def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame) -> pd.D
     return merged_df
 
 
-
-
-
 def main():
     # Hard-coded values
-    filename = 'raw_data/polling/2020_trump_biden.csv'
-    candidates = ['Donald Trump', 'Joe Biden']
-    year = 2020
+    filename = 'data/raw/polling/1936_roosevelt_landon.csv'
+    candidates = ['Franklin D. Roosevelt', 'Alf Landon']
+    year = 1936
     batch_size = 50
 
-    base_filename = os.path.splitext(os.path.basename(filename))[0]
-    llm_filename = f'processed_data/polling/{base_filename}_isvalid_llm.csv'
-    human_filename = f'processed_data/polling/{base_filename}_isvalid_human.csv'
-    final_filename = f'processed_data/polling/{base_filename}_isvalid_final.csv'
+    # filename = 'data/raw/polling/1940_roosevelt_willkie.csv'
+    # candidates = ['Franklin D. Roosevelt', 'Wendell Willkie']
+    # year = 1940
 
-    # Format the data
+    # filename = 'data/raw/polling/1944_roosevelt_dewey.csv'
+    # candidates = ['Franklin D. Roosevelt', 'Thomas Dewey']
+    # year = 1944
+
+    # Format the polling data.
     formatted_data = format_polls(filename)
 
-    # Comment out the call to the human GUI
-    # from validate_polls_gui import validate_polls
-    # validate_polls(filename)
 
-    # Process polls via LLM
-    processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
+    base_filename = os.path.splitext(os.path.basename(filename))[0]
+    llm_filename = f'data/intermediate/polling/{base_filename}_isvalid_llm.csv'
+    human_filename = f'data/intermediate/polling/{base_filename}_isvalid_human.csv'
+    final_filename = f'data/intermediate/polling/{base_filename}_isvalid_final.csv'
+
+    validate_polls(filename)
+    return None
+
+    # # Process polls via LLM
+    # processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
 
     # Call the testing suite
     # TODO: Import and call the testing suite function here
