@@ -77,7 +77,7 @@ class PollingDataEvaluationGUI:
         """
 
         # Create a text box to display the question.
-        self.question_text = tk.Text(self.master, wrap=tk.WORD, height=5, width=80, bg="white")
+        self.question_text = tk.Text(self.master, wrap=tk.WORD, height=10, width=80, bg="white")
         self.question_text.pack(pady=10)
 
         # Create a text box to display the responses.

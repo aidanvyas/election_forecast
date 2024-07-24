@@ -537,7 +537,7 @@ def main():
     filename = 'data/raw/polling/1936_roosevelt_landon.csv'
     candidates = ['Franklin D. Roosevelt', 'Alf Landon']
     year = 1936
-    batch_size = 40
+    batch_size = 50
 
     filename = 'data/raw/polling/1940_roosevelt_willkie.csv'
     candidates = ['Franklin D. Roosevelt', 'Wendell Willkie']
@@ -558,6 +558,22 @@ def main():
     filename = 'data/raw/polling/1956_eisenhower_stevenson.csv'
     candidates = ['Dwight D. Eisenhower', 'Adlai Stevenson II']
     year = 1956
+
+    filename = 'data/raw/polling/1960_nixon_kennedy.csv'
+    candidates = ['Richard Nixon', 'John F. Kennedy']
+    year = 1960
+
+    filename = 'data/raw/polling/1964_johnson_goldwater.csv'
+    candidates = ['Lyndon B. Johnson', 'Barry Goldwater']
+    year = 1964
+
+    filename = 'data/raw/polling/1968_humphrey_nixon.csv'
+    candidates = ['Hubert Humphrey', 'Richard Nixon']
+    year = 1968
+
+    filename = 'data/raw/polling/1972_nixon_mcgovern.csv'
+    candidates = ['Richard Nixon', 'George McGovern']
+    year = 1972
 
     base_filename = os.path.splitext(os.path.basename(filename))[0]
     llm_filename = f'data/intermediate/polling/{base_filename}_isvalid_llm.csv'
