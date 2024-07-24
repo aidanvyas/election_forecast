@@ -99,6 +99,58 @@ def create_polls_isValid_system_prompt(candidates: List[str], year: int) -> str:
 
     return f"""You are a polling analyst for the {year} presidential election between the following candidates: {candidates_str}.
     Your task is to determine whether a given poll is a valid general election poll between the specified candidates.
+    Criteria for a valid general election poll:
+
+    It asks voters about their preference, support, or voting intention for candidates in the {year} presidential election.
+
+    This includes questions about who voters would "vote for", "prefer", "support", or "like to see win".
+    Questions about hypothetical matchups between announced candidates are valid.
+
+
+    It includes at least two of the following candidates: {candidates_str} in the response options.
+    It has at least two different response options with numerical percentages.
+    It focuses on the current election cycle and doesn't present hypothetical scenarios unrelated to candidate preferences.
+
+    Valid poll examples:
+
+    "If the election were held today, who would you vote for?"
+    "Which candidate do you prefer for President?"
+    "Who would you like to see win the presidential election?"
+    "If X and Y were the nominees, who would you support?"
+
+    Exclude polls that:
+
+    Ask about which candidate will win (rather than who the respondent would vote for or prefer).
+    Ask about favorable media coverage.
+    Ask about which candidate is more trustworthy, has better leadership qualities, will handle certain issues better, etc.
+    Have only one response option or no numerical percentages.
+    Don't include at least two of the specified candidates in the response options.
+    Have a discrepancy between the candidates mentioned in the question and the response options.
+    Present unrealistic scenarios (e.g., multiple candidates from the same party running for the same position).
+    Ask about past elections or voting behavior (e.g., "Who did you vote for in the previous election?").
+    Focus on primary elections or intra-party contests.
+
+    Special considerations:
+
+    Polls including third-party or independent candidates are valid as long as they meet the other criteria.
+    Questions about hypothetical vice presidential candidates are valid if they're part of a ticket with a main candidate.
+    Polls asking respondents to choose between specific party tickets (e.g., "Carter-Mondale vs. Reagan-Bush") are valid.
+    Questions that ask about leaning towards a candidate if undecided are valid.
+    Polls conducted before candidates have officially announced may use language like "if X were the nominee" and are still valid.
+
+    Output format:
+    Your output should be a JSON object with the following structure:
+    {{
+        "questionId": string,
+        "isValid": boolean
+    }}
+    Remember to focus solely on determining the validity of the poll based on these criteria. Do not include explanations or additional commentary in your output."""
+
+
+
+
+    return f"""You are a polling analyst for the {year} presidential election between the following candidates: {candidates_str}.
+    Your task is to determine whether a given poll is a valid general election poll between the specified candidates.
 
     Criteria for a valid general election poll:
     1. It asks voters directly who they would vote for in the {year} presidential election.
@@ -534,64 +586,53 @@ def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame):
 
 
 def main():
-    filename = 'data/raw/polling/1936_roosevelt_landon.csv'
-    candidates = ['Franklin D. Roosevelt', 'Alf Landon']
-    year = 1936
-    batch_size = 50
 
-    filename = 'data/raw/polling/1940_roosevelt_willkie.csv'
-    candidates = ['Franklin D. Roosevelt', 'Wendell Willkie']
-    year = 1940
+    polling_data = [
+        ('data/raw/polling/1936_roosevelt_landon.csv', ['Franklin D. Roosevelt', 'Alf Landon'], 1936),
+        ('data/raw/polling/1940_roosevelt_willkie.csv', ['Franklin D. Roosevelt', 'Wendell Willkie'], 1940),
+        ('data/raw/polling/1944_roosevelt_dewey.csv', ['Franklin D. Roosevelt', 'Thomas E. Dewey'], 1944),
+        ('data/raw/polling/1948_truman_dewey.csv', ['Harry S. Truman', 'Thomas E. Dewey'], 1948),
+        ('data/raw/polling/1952_stevenson_eisenhower.csv', ['Adlai Stevenson II', 'Dwight D. Eisenhower'], 1952),
+        ('data/raw/polling/1956_eisenhower_stevenson.csv', ['Dwight D. Eisenhower', 'Adlai Stevenson II'], 1956),
+        ('data/raw/polling/1960_nixon_kennedy.csv', ['Richard Nixon', 'John F. Kennedy'], 1960),
+        ('data/raw/polling/1964_johnson_goldwater.csv', ['Lyndon B. Johnson', 'Barry Goldwater'], 1964),
+        ('data/raw/polling/1968_humphrey_nixon.csv', ['Hubert Humphrey', 'Richard Nixon'], 1968),
+        ('data/raw/polling/1972_nixon_mcgovern.csv', ['Richard Nixon', 'George McGovern'], 1972),
+        ('data/raw/polling/1976_ford_carter.csv', ['Gerald Ford', 'Jimmy Carter'], 1976),
+        ('data/raw/polling/1980_carter_reagan.csv', ['Jimmy Carter', 'Ronald Reagan'], 1980)
+        # ('data/raw/polling/1984_reagan_mondale.csv', ['Ronald Reagan', 'Walter Mondale'], 1984)
+    ]
 
-    filename = 'data/raw/polling/1944_roosevelt_dewey.csv'
-    candidates = ['Franklin D. Roosevelt', 'Thomas E. Dewey']
-    year = 1944
+    # Create a list of filenames for the LLM and final CSV files.
+    llm_filenames = []
+    final_filenames = []
 
-    filename = 'data/raw/polling/1948_truman_dewey.csv'
-    candidates = ['Harry S. Truman', 'Thomas E. Dewey']
-    year = 1948
+    # Iterate over the polling data.
+    for filename, candidates, year in polling_data:
 
-    filename = 'data/raw/polling/1952_stevenson_eisenhower.csv'
-    candidates = ['Adlai Stevenson II', 'Dwight D. Eisenhower']
-    year = 1952
+        # Get the base filename, LLM filename, and set the batch size.
+        base_filename = os.path.splitext(os.path.basename(filename))[0]
+        llm_filename = f'data/intermediate/polling/{base_filename}_isvalid_llm.csv'
+        batch_size = 50
 
-    filename = 'data/raw/polling/1956_eisenhower_stevenson.csv'
-    candidates = ['Dwight D. Eisenhower', 'Adlai Stevenson II']
-    year = 1956
+        # Format the polling data.
+        formatted_data = format_polling(filename, year)
 
-    filename = 'data/raw/polling/1960_nixon_kennedy.csv'
-    candidates = ['Richard Nixon', 'John F. Kennedy']
-    year = 1960
+        # Process the polling data using the Gemini Flash API.
+        processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
 
-    filename = 'data/raw/polling/1964_johnson_goldwater.csv'
-    candidates = ['Lyndon B. Johnson', 'Barry Goldwater']
-    year = 1964
+        # Merge the processed data with the original polling data.
+        merge_polls_with_validity(filename, processed_df)
 
-    filename = 'data/raw/polling/1968_humphrey_nixon.csv'
-    candidates = ['Hubert Humphrey', 'Richard Nixon']
-    year = 1968
+        # # Call the human GUI.
+        # run_gui(llm_filename)
 
-    filename = 'data/raw/polling/1972_nixon_mcgovern.csv'
-    candidates = ['Richard Nixon', 'George McGovern']
-    year = 1972
+        # Append the LLM and final CSV filenames to the lists.
+        llm_filenames.append(llm_filename)
+        final_filenames.append(f'data/intermediate/polling/{base_filename}_isvalid_final.csv')
 
-    base_filename = os.path.splitext(os.path.basename(filename))[0]
-    llm_filename = f'data/intermediate/polling/{base_filename}_isvalid_llm.csv'
-
-    # Format the polling data.
-    formatted_data = format_polling(filename, year)
-
-    # Process the polling data using the Gemini Flash API.
-    processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
-
-    # Merge the processed data with the original polling data.
-    merge_polls_with_validity(filename, processed_df)
-
-    # Call the human GUI.
-    run_gui(llm_filename)
-
-    # Compare the LLM and final CSV files.
-    compare_llm_with_final(llm_filename, llm_filename.replace('llm', 'final'))
+    # Compare the LLM and final CSV files.    
+    compare_llm_with_final(llm_filenames, final_filenames, 'results.txt')
 
 
 if __name__ == "__main__":

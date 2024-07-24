@@ -1,0 +1,2202 @@
+
+Disagreements:
+
+QuestionID: USGALLUP.36-053.Q4B
+QuestionTxt: WHICH (1936 PRESIDENTIAL) CANDIDATE DO YOU THINK WILL WIN IN YOUR STATE?
+Responses:
+ROOSEVELT (63%)
+LEMKE (1%)
+LANDON (36%)
+isValid_llm: True
+isValid_final: False
+
+
+Disagreements:
+
+QuestionID: USGALLUP.071240.RK09
+QuestionTxt: If President Roosevelt runs for a third term on the Democratic ticket against Wendell Willkie on the Republican ticket how would you vote?
+Responses:
+No opinion (10%)
+Roosevelt (48%)
+Willkie (42%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.40-197.QT12A
+QuestionTxt: If Wendell Willkie runs for President on the Republican ticket against President Roosevelt running for a third term on the Democratic ticket, which one would you prefer?
+Responses:
+Undecided (15%)
+Willkie (27%)
+Roosevelt (57%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.40-201.QKT04
+QuestionTxt: If President Roosevelt runs for a third term on the Democratic ticket against Wendell Willkie on the Republican ticket, how would you vote?
+Responses:
+Roosevelt (46%)
+Undecided (14%)
+Willkie (40%)
+isValid_llm: False
+isValid_final: True
+
+
+Disagreements:
+
+QuestionID: 31093625.00009
+QuestionTxt: Regardless of his chances for nomination or election, which of the following do you believe would make the best president for the next four years?...(Cordell) Hull, (James) Byrnes, (Thomas) Dewey, (Bernard) Baruch, (Harold) Stassen, (John) Bricker, (Franklin) Roosevelt, (Wendell) Willkie, (George) Wallace, (Douglas) MacArthur
+Responses:
+Wallace (1%)
+MacArthur (4%)
+Hull (1%)
+Byrnes (*%)
+Dewey (20%)
+Baruch (*%)
+Stassen (17%)
+Bricker (2%)
+Willkie (6%)
+Some other (1%)
+Roosevelt (42%)
+Don't know (7%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: 31093628.00011
+QuestionTxt: If the war is still going on in Europe, and President (Franklin) Roosevelt runs for the Democrats against Governor (Thomas) Dewey for the Republicans, for whom will you vote?
+Responses:
+Don't know (13%)
+Will not vote (1%)
+nan (*%)
+Dewey (45%)
+Other (*%)
+Roosevelt (41%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: 31093628.00012
+QuestionTxt: If the war is over this fall and (Franklin) Roosevelt runs for the Democrats against (Thomas) Dewey, for whom will you vote?
+Responses:
+Don't know (14%)
+Other (*%)
+Dewey (54%)
+Roosevelt (29%)
+Will not vote (1%)
+nan (*%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: 31093629.00019
+QuestionTxt: If the war is still going on in Europe in November, do you think you will vote for (Franklin) Roosevelt or (Thomas) Dewey?
+Responses:
+Roosevelt (50%)
+Dewey (41%)
+Undecided (7%)
+Will not vote (2%)
+nan (1%)
+Other answers (*%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: 31093629.00020
+QuestionTxt: If it is clear that the war is almost over in Europe in November, do you think you will vote for (Thomas) Dewey or (Franklin) Roosevelt?
+Responses:
+Dewey (47%)
+Will not vote (2%)
+nan (1%)
+Other answers (*%)
+Roosevelt (43%)
+Undecided (8%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.042444.RK14A
+QuestionTxt: If the war is still going on and President Roosevelt runs for the Democrats against Governor Dewey for the Republicans, how do you think you will vote?
+Responses:
+Dewey (45%)
+Roosevelt (55%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.042444.RK14B
+QuestionTxt: If the war is over and President Roosevelt runs for the Democrats against Governor Dewey for the Republicans, how do you think you will vote?
+Responses:
+Dewey (58%)
+Roosevelt (42%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.042444.RK14C
+QuestionTxt: Suppose the war is still going on in Europe, but it looks as though it might be over in a few weeks or a few months, how do you think you will vote--for President Roosevelt or Governor Dewey?
+Responses:
+Roosevelt (51%)
+Dewey (49%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.43-295.QT24
+QuestionTxt: Suppose these were the candidates for President and Vice President in the election next year, which ticket would you vote for--Roosevelt (President) and Wallace or Dewey (President) and MacArthur?
+Responses:
+No opinion (17%)
+Dewey and MacArthur (36%)
+Roosevelt and Wallace (47%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.43-297.QT14
+QuestionTxt: If the presidential election were being held today, and Wendell Willkie were running for President on an Independent ticket against Thomas Dewey on the Republican ticket and Roosevelt on the Democratic ticket, how do you think you would vote?
+Responses:
+Willkie--Independent (15%)
+Undecided (11%)
+Roosevelt--Democratic (48%)
+Dewey--Republican (27%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.43-305.QKT08
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: Byrd, Douglas, Roosevelt, Byrnes, Wallace, McNutt, Farley, Republican: Dewey, Warren, Eric Johnston, Bricker, Willkie, MacArthur, Stassen.
+Responses:
+McNutt (1%)
+Byrd (2%)
+Douglas (*%)
+Roosevelt (45%)
+Byrnes (1%)
+Wallace (2%)
+Farley (1%)
+Warren (1%)
+MacArthur (11%)
+Willkie (14%)
+Stassen (3%)
+Eric Johnston (2%)
+Bricker (3%)
+Dewey (15%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.43-308.QK06
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: Byrd, Marshall, Roosevelt, Byrnes, Wallace, Douglas, Farley, Republican: Dewey, Warren, Johnston, Bricker, Willkie, MacArthur, Stassen.
+Responses:
+Marshall (1%)
+Roosevelt (46%)
+Byrnes (1%)
+Wallace (3%)
+Douglas (*%)
+Farley (1%)
+Dewey (18%)
+Warren (*%)
+Byrd (1%)
+Willkie (11%)
+MacArthur (12%)
+Stassen (1%)
+Johnston (1%)
+Bricker (4%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-309.QT08A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: Byrd, Hull, Roosevelt, Byrnes, Wallace, Douglas, Farley, Republican: Dewey, Dirksen, Johnston, Bricker, Willkie, MacArthur, Stassen.
+Responses:
+Stassen (3%)
+Willkie (11%)
+Bricker (4%)
+Johnston (1%)
+Hull (2%)
+Byrnes (*%)
+Wallace (1%)
+Douglas (*%)
+Farley (1%)
+Roosevelt (49%)
+MacArthur (9%)
+Byrd (1%)
+Dirksen (*%)
+Dewey (19%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-311.QKT06C
+QuestionTxt: Who would be your second choice of all these possible candidates--either Democratic or Republican (as the one you would like to see as the next President)? Democratic: Byrd, Hull, Roosevelt, Byrnes, Wallace, Rayburn, Farley, Republican: Dewey, Johnston, Warren, Bricker, Willkie, MacArthur, Stassen.
+Responses:
+MacArthur (4%)
+Stassen (13%)
+Not asked on first mention (8%)
+Johnston (1%)
+Bricker (7%)
+Warren (1%)
+Dewey (17%)
+Farley (5%)
+Rayburn (3%)
+Wallace (11%)
+Byrnes (2%)
+Roosevelt (4%)
+Hull (11%)
+Byrd (2%)
+Willkie (11%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-312.QK04A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: Byrd, Hull, Roosevelt, Byrnes, Wallace, Rayburn, Farley, Republican: Dewey, Johnston, Warren, Bricker, Willkie, MacArthur, Stassen.
+Responses:
+Farley (1%)
+Dewey (20%)
+Johnston (1%)
+Warren (1%)
+Bricker (6%)
+Willkie (8%)
+MacArthur (8%)
+Stassen (2%)
+Byrnes (*%)
+Byrd (1%)
+Rayburn (*%)
+Wallace (1%)
+Roosevelt (50%)
+Hull (3%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-312.QT07A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States? Democratic: Byrd, Hull, Roosevelt, Byrnes, Wallace, Rayburn, Farley, Republican: Dewey, Johnston, Warren, Bricker, Willkie, MacArthur, Stassen.
+Responses:
+Dewey (23%)
+Byrnes (*%)
+Wallace (2%)
+Rayburn (*%)
+Farley (1%)
+Byrd (1%)
+Johnston (1%)
+Warren (1%)
+Bricker (6%)
+Willkie (10%)
+MacArthur (9%)
+Stassen (3%)
+Roosevelt (43%)
+Hull (2%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-315.QKT04A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: McNutt, Hull, Roosevelt, Byrnes, Wallace, Rayburn, Barkley, Republican: Dewey, Johnston, Warren, Bricker, Willkie, MacArthur, Stassen.
+Responses:
+Stassen (3%)
+MacArthur (7%)
+Willkie (8%)
+Bricker (5%)
+Warren (*%)
+Johnston (1%)
+Dewey (27%)
+Barkley (1%)
+Rayburn (*%)
+Wallace (1%)
+Byrnes (*%)
+Roosevelt (46%)
+Hull (2%)
+McNutt (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-316.QK04A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: McNutt, Hull, Roosevelt, Wallace, Rayburn, Barkley, Byrnes, Republican: Dewey, Johnston, Warren, Bricker, MacArthur, Stassen, Willkie.
+Responses:
+Hull (2%)
+Willkie (4%)
+MacArthur (11%)
+Bricker (5%)
+Warren (*%)
+Johnston (1%)
+Dewey (30%)
+Byrnes (*%)
+Barkley (1%)
+Rayburn (*%)
+Wallace (1%)
+Roosevelt (42%)
+McNutt (*%)
+Stassen (3%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-316.QT04A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: McNutt, Hull, Roosevelt, Wallace, Rayburn, Barkley, Republican: Dewey, Johnston, Warren, Bricker, MacArthur, Stassen.
+Responses:
+Stassen (3%)
+Rayburn (*%)
+MacArthur (11%)
+Bricker (4%)
+Warren (*%)
+Johnston (1%)
+Dewey (32%)
+Wallace (2%)
+Barkley (1%)
+Hull (2%)
+McNutt (*%)
+Roosevelt (43%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-317.QK03B
+QuestionTxt: Who would be your second choice for all these possible candidates either Democratic or Republican?... Democratic: McNutt, Hull, Roosevelt, Wallace, Rayburn Barkley, Byrnes Republican: Dewey, Johnston, Warren, Bricker, MacArthur, Stassen, Taft.
+Responses:
+Hull (9%)
+McNutt (3%)
+Roosevelt (7%)
+Wallace (11%)
+Rayburn (2%)
+Barkley (4%)
+Dewey (21%)
+Johnston (2%)
+Byrnes (2%)
+Bricker (9%)
+MacArthur (15%)
+Stassen (8%)
+Taft (5%)
+Warren (4%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-318.QK07A
+QuestionTxt: Suppose the war in the pacific is still going on at election time this fall but it looks as if Germany might be defeated in a few months, how do you think you would vote--for Roosevelt or Dewey?
+Responses:
+No opinion (7%)
+Dewey (41%)
+Roosevelt (52%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-318.QT03A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: Hull, Roosevelt, Wallace, Farley, Byrd Republican: Dewey, Taft, Warren, Bricker, Stassen
+Responses:
+Dewey (36%)
+Byrd (1%)
+Farley (1%)
+Wallace (2%)
+Roosevelt (48%)
+Hull (3%)
+Bricker (5%)
+Stassen (3%)
+Taft (2%)
+Warren (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-318.QT03B
+QuestionTxt: Who would be your second choice of all these possible candidates--either Democratic or Republican?... Democratic: Hull, Roosevelt, Wallace, Farley, Byrd Republican: Dewey, Taft, Warren, Bricker, Stassen
+Responses:
+Stassen (10%)
+Bricker (12%)
+Warren (6%)
+Taft (8%)
+Dewey (20%)
+Byrd (4%)
+Farley (4%)
+Wallace (16%)
+Roosevelt (9%)
+Hull (11%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-319.QT04A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: Hull, Roosevelt, Wallace, Republican: Dewey, Bricker or Stassen?
+Responses:
+Hull (3%)
+Roosevelt (48%)
+Wallace (2%)
+Dewey (36%)
+Bricker (7%)
+Stassen (5%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.44-321.QT06A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see as a the next President of the United States?... Democratic: Hull, Roosevelt, Wallace, Farley, Byrd, McNutt, Rayburn, Republican: Dewey, Taft, Warren Bricker, Stassen, MacArthur, Willkie
+Responses:
+Willkie (3%)
+MacArthur (5%)
+Stassen (3%)
+Roosevelt (46%)
+Wallace (1%)
+Farley (1%)
+Rayburn (*%)
+McNutt (*%)
+Dewey (30%)
+Taft (1%)
+Warren (1%)
+Bricker (6%)
+Byrd (1%)
+Hull (2%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USOPOR.44-023.Q12
+QuestionTxt: If the war is still going on and if President (Franklin D.) Roosevelt runs for the Democrats against Governor (Thomas) Dewey for the Republicans, how do you think you will vote (for president)?
+Responses:
+Roosevelt (55%)
+Dewey (30%)
+Undecided (16%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USOPOR.44-023.Q13
+QuestionTxt: If the war is over and (Franklin D.) Roosevelt runs (for president) for the Democrats against (Thomas) Dewey, how do you think you will vote?
+Responses:
+Roosevelt (35%)
+Dewey (46%)
+Undecided (19%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USOPOR.44-023.Q14
+QuestionTxt: Now suppose the war is still going on but the end of the war is clearly in sight.  In that case, how do you think you would vote--for (Franklin D.) Roosevelt or (Thomas) Dewey (for president)?
+Responses:
+Undecided (17%)
+Dewey (39%)
+Roosevelt (45%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USOPOR.44-030.Q03
+QuestionTxt: After the war, which man would you rather have represent the United States at the peace conference--(Franklin D.) Roosevelt or (Thomas) Dewey?
+Responses:
+Roosevelt (64%)
+Either (Vol.) (4%)
+Dewey (26%)
+No opinion (7%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USOPOR.44-030.Q04
+QuestionTxt: After the war, which man would do the best job of running our affairs here in this country--(Franklin D.) Roosevelt or (Thomas) Dewey?
+Responses:
+No opinion (7%)
+Either (Vol.) (4%)
+Dewey (42%)
+Roosevelt (47%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USROPER.44-040.R08E
+QuestionTxt: If the war in Europe is over but the war in the Pacific is still going on--if you had to choose between Roosevelt and Dewey as President (in 1944), which would you probably vote for?
+Responses:
+Don't know (25%)
+Roosevelt (27%)
+Dewey (48%)
+isValid_llm: True
+isValid_final: False
+
+
+Disagreements:
+
+QuestionID: USGALLUP.375K.QK11
+QuestionTxt: What man would you like to see elected president of the country in 1948?
+Responses:
+Others (6%)
+Miscellaneous (2%)
+Lindbergh (1%)
+A Republican (1%)
+Stettinius (1%)
+Harold Barton (3%)
+Philip Murray (1%)
+No answer/Don't know (25%)
+Taft (1%)
+Vandenberg (3%)
+Bricker (3%)
+MacArthur (3%)
+Stassen (9%)
+James Byrnes (2%)
+Henry Wallace (4%)
+Eisenhower (2%)
+Truman (16%)
+It's too far ahead, wait to see who's running (*%)
+No choice, no one in particular (3%)
+Dewey (14%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.375T.QT11
+QuestionTxt: If you had to decide today, who would be your choice for President in 1948?
+Responses:
+Truman (20%)
+No answer/Don't know (24%)
+Others (7%)
+Stettinius (1%)
+Warren (3%)
+James Byrnes (2%)
+Taft (2%)
+Bricker (3%)
+MacArthur (2%)
+Stassen (12%)
+Henry Wallace (4%)
+No choice, no one in particular (3%)
+It's too far ahead, wait to see who's running (*%)
+Vandenberg (3%)
+Dewey (12%)
+Eisenhower (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.411.QKT08B
+QuestionTxt: Who would be your second choice (to be elected President in 1948)?... Democratic: Byrd, Marshall, Truman, Forrestal, Pepper, Farley, Anderson, Byrnes Republican: Stassen, Taft, Dewey, Martin, MacArthur, Eisenhower, Warren, Vandenberg Third party: Wallace?
+Responses:
+Dewey (12%)
+Truman (8%)
+Marshall (9%)
+Byrd (1%)
+Farley (3%)
+Anderson (*%)
+nan (3%)
+Stassen (9%)
+Taft (7%)
+Other Democrats (*%)
+Martin (1%)
+Forrestal (2%)
+Pepper (2%)
+MacArthur (7%)
+Eisenhower (10%)
+Warren (3%)
+Vandenberg (6%)
+No answer/Don't know (11%)
+Other Republicans (*%)
+Wallace (2%)
+Byrnes (4%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.413.QKT10A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see elected President of the United States in 1948: Democratic... Byrd, Marshall, Truman, Forrestal, Pepper, Farley, Anderson, Byrnes or Republican... Stassen, Taft, Dewey, Martin, MacArthur, Saltonstall, Warren, Warren, Vandenberg or Third party... Wallace?
+Responses:
+Taft (7%)
+Byrd (1%)
+Forrestal (*%)
+nan (*%)
+Pepper (1%)
+Marshall (5%)
+Anderson (*%)
+No Answer/Don't know (4%)
+Eisenhower (*%)
+Wallace (5%)
+Farley (2%)
+Vandenberg (7%)
+Warren (4%)
+Saltonstall (1%)
+Other Republicans (*%)
+Martin (1%)
+Dewey (18%)
+Truman (24%)
+Stassen (9%)
+Other Democrats (*%)
+Byrnes (2%)
+MacArthur (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.414T.QT08B
+QuestionTxt: WHO WOULD BE YOUR SECOND CHOICE (YOU WOULD LIKE TO SEE ELECTED PRESIDENT OF THE UNITED STATES IN 1948)?
+Responses:
+FORRESTAL (2%)
+MARSHALL (8%)
+DON'T KNOW, NO ANSWER (9%)
+NONE (6%)
+NORMAN THOMAS (*%)
+EISENHOWER (1%)
+WALLACE (2%)
+OTHER REPUBLICANS (*%)
+VANDENBERG (10%)
+WARREN (5%)
+BYRD (1%)
+MACARTHUR (9%)
+MARTIN (1%)
+DEWEY (13%)
+SALTONSTALL (1%)
+STASSEN (11%)
+OTHER DEMOCRATS (*%)
+BYRNES (3%)
+ANDERSON (1%)
+FARLEY (3%)
+PEPPER (1%)
+TAFT (6%)
+TRUMAN (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.418T.QT11A
+QuestionTxt: WILL YOU LOOK OVER ALL THESE POSSIBLE CANDIDATES AND TELL ME WHICH ONE MAN YOU'D LIKE TO SEE ELECTED PRESIDENT OF THE UNITED STATES IN 1948?
+Responses:
+BYRD (1%)
+TRUMAN (22%)
+FORRESTAL (*%)
+DOUGLAS (1%)
+BYRNES (1%)
+STASSEN (25%)
+TAFT (5%)
+WARREN (2%)
+MARTIN (1%)
+MACARTHUR (9%)
+GREEN (*%)
+VANDENBERG (9%)
+WALLACE (3%)
+NONE (*%)
+DON'T KNOW, NO ANSWER (4%)
+DEWEY (14%)
+BIG JIM (*%)
+MARSHALL (4%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.45-345.QKT07
+QuestionTxt: What man would you like to see elected president of the country in 1948?
+Responses:
+Stettinius (2%)
+Stassen (4%)
+Others (5%)
+Vandenburg (1%)
+MacArthur (1%)
+Don't know yet, some good, wait and see who come up, undecided (17%)
+No answer/Don't know (35%)
+Truman (15%)
+Dewey (13%)
+Bricker (2%)
+Wallace (5%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.45-352.QKT10
+QuestionTxt: If you were the one to decide and you could pick any person in the nation you thought qualified, whom would you choose to be the next president of the United States?
+Responses:
+Vandenberg (1%)
+No one, none, no choice (2%)
+Bricker (1%)
+Best man (*%)
+Others (8%)
+Miscellaneous (1%)
+No answer/Don't know/No idea (27%)
+Hoover (1%)
+Wallace (4%)
+MacArthur (4%)
+Stettinius (2%)
+Stassen (4%)
+Dewey (10%)
+Truman (30%)
+Eisenhower (4%)
+Byrne (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.45-362.QKT11
+QuestionTxt: What man would you like to see elected President of the country in 1948?
+Responses:
+No choice, no one in particular (3%)
+No answer/Don't know (21%)
+Others (4%)
+Stettinius (1%)
+Warren (1%)
+James Byrnes (1%)
+Taft (1%)
+Bricker (3%)
+MacArthur (3%)
+Stassen (10%)
+Eisenhower (3%)
+Dewey (13%)
+Truman (25%)
+It's too far ahead, wait to see who's running (2%)
+Miscellaneous (1%)
+Henry Wallace (6%)
+Vandenberg (2%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-363.QKT04
+QuestionTxt: What man would you like to see elected president of the country in 1948?
+Responses:
+Others (4%)
+It's too far ahead, wait to see who's running (4%)
+Harry Truman (23%)
+Thomas Dewey (12%)
+Dwight Eisenhower (3%)
+Henry Wallace (5%)
+Harold Stassen (10%)
+Douglas MacArthur (4%)
+John Bricker (2%)
+Robert Taft (1%)
+No choice, no one in particular (3%)
+Eric Johnston (1%)
+Fiorello LaGuardia (1%)
+Edward Stettinius (1%)
+Miscellaneous (1%)
+A trained man (1%)
+Don't know/No answer (22%)
+Arthur Vandenberg (2%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-366.QKT16
+QuestionTxt: What man would you like to see elected President of the country in 1948?
+Responses:
+Harry S. Truman (17%)
+No choice, no one in particular (9%)
+Miscellaneous (1%)
+Others (5%)
+Secretary of State Edward R. Stettinius Jr. (1%)
+Earl Warren (1%)
+Herbert Hoover (1%)
+Robert A. Taft (1%)
+Arthur H. Vandenberg (2%)
+Thomas E. Dewey (13%)
+Ohio Senator John W. Bricker (4%)
+Leverett A. Saltonstall (1%)
+It's too far ahead, wait to see who's running (1%)
+Douglas MacArthur (2%)
+Harold E. Stassen (13%)
+Don't know/No answer (19%)
+Dwight D. Eisenhower (2%)
+Henry A. Wallace (7%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-369.QK10
+QuestionTxt: What man would you like to see elected president of the country in 1948?
+Responses:
+Henry Wallace (8%)
+MacArthur (2%)
+Saltonstall (1%)
+Bricker (3%)
+Stassen (12%)
+Vandenberg (2%)
+Taft (1%)
+James Byrnes (1%)
+No choice, no one in particular (9%)
+It's too far ahead, wait to see who's running (2%)
+Truman (21%)
+Any good Republican (1%)
+Others (5%)
+Dewey (12%)
+No answer/Don't know (17%)
+Stettinius (1%)
+Eisenhower (2%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-373.QT11B
+QuestionTxt: How do you think you would vote if Dewey were running for President on the Republican ticket against Truman?
+Responses:
+No opinion (17%)
+Dewey (42%)
+Truman (41%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.46-374.QKT15
+QuestionTxt: What man would you like to see elected president of the country in 1948?
+Responses:
+It's too far ahead, wait to see who's running (1%)
+Eisenhower (2%)
+Henry Wallace (6%)
+Stassen (9%)
+MacArthur (2%)
+Saltonstall (1%)
+Bricker (3%)
+Vandenberg (2%)
+Taft (2%)
+Truman (16%)
+James Byrnes (1%)
+Dewey (12%)
+Any Democrat (1%)
+Any Republican (1%)
+Not Truman (1%)
+Miscellaneous (2%)
+Others (8%)
+No answer/Don't know (26%)
+No choice, no one in particular (3%)
+Warren (3%)
+Stettinius (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-378.QKT17
+QuestionTxt: If you had to decide today, who would be your choice for President in 1948?
+Responses:
+Warren (2%)
+Truman (15%)
+It's too far ahead, wait to see who's running (*%)
+No choice, no one in particular (5%)
+Taft (2%)
+James Byrnes (2%)
+Not Truman (1%)
+Vandenberg (2%)
+Henry Wallace (6%)
+Bricker (2%)
+No answer/Don't know (26%)
+Miscellaneous (1%)
+Others (5%)
+A Republican (1%)
+MacArthur (2%)
+Stassen (11%)
+Eisenhower (2%)
+Dewey (15%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-380.Q14
+QuestionTxt: If you had to decide today, who would be your choice for President in 1948?
+Responses:
+Dewey (15%)
+No choice, no one in particular (4%)
+No answer/Don't know (22%)
+Other (6%)
+Truman (13%)
+A Democrat (1%)
+Warren (2%)
+Not Truman (1%)
+James Byrnes (3%)
+Taft (2%)
+It's too far ahead, wait to see who's running (*%)
+Bricker (3%)
+Saltonstall (1%)
+MacArthur (3%)
+Stassen (10%)
+Henry Wallace (7%)
+Eisenhower (2%)
+A Republican (1%)
+Vandenberg (3%)
+Miscellaneous (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-381.Q13
+QuestionTxt: If you had to decide today, who would be your choice for President in 1948?
+Responses:
+Bricker (3%)
+No choice, no one in particular (5%)
+It's too far ahead, wait to see who's running (*%)
+Truman (11%)
+Dewey (18%)
+Eisenhower (2%)
+Henry Wallace (8%)
+Stassen (9%)
+MacArthur (2%)
+Vandenberg (3%)
+Taft (3%)
+James Byrnes (3%)
+Not Truman (1%)
+Warren (2%)
+A Republican (1%)
+A Democrat (1%)
+Stettinius (1%)
+Others (8%)
+Miscellaneous (*%)
+No answer/Don't know (19%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-385.QKT16A
+QuestionTxt: In your opinion, who do you think would handle the following problems better--Truman or Dewey?... Reducing the number of strikes.
+Responses:
+Truman (19%)
+Dewey (45%)
+Don't know (36%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-385.QKT16B
+QuestionTxt: (In your opinion, who do you think would handle the following problems better--Truman or Dewey?)... Dealing with foreign nations.
+Responses:
+Truman (26%)
+Dewey (40%)
+Don't know (34%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-385.QKT16D
+QuestionTxt: (In your opinion, who do you think would handle the following problems better--Truman or Dewey?)... Solving the housing problem.
+Responses:
+Truman (19%)
+Dewey (42%)
+Don't know (39%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.46-386.QK10
+QuestionTxt: Which one of these possible candidates for President in 1948 do you favor most...John W. Bricker, Thomas E. Dewey, Dwight D. Eisenhower, Harold E. Stassen, Harry S. Truman, Henry A. Wallace?
+Responses:
+Bricker (9%)
+Wallace (11%)
+Truman (13%)
+Stassen (16%)
+Eisenhower (22%)
+Dewey (30%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-388.QKT09
+QuestionTxt: If you had to decide today, who would be your choice for President in 1948?
+Responses:
+James Byrnes (2%)
+Dewey, Thomas E. (20%)
+Eisenhower, Dwight D. (7%)
+Henry A. Wallace (5%)
+Stassen, Harold E. (9%)
+MacArthur, Douglas (2%)
+Bricker, John W. (2%)
+Vandenberg, Arthur H. (4%)
+Warren, Earl (2%)
+No choice, no one in particular (3%)
+Truman, Harry S. (14%)
+General Marshall (2%)
+Other (6%)
+Miscellaneous (*%)
+Don't know/No answer (19%)
+Taft, Robert A. (3%)
+Wait to see who's running, too far ahead (*%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-390.QKT08
+QuestionTxt: If you had to decide today, who would be your choice for President in 1948?
+Responses:
+General Marshall (3%)
+It's too far ahead, wait to see who's running (*%)
+No choice, no one in particular (4%)
+A Republican (1%)
+Dewey (16%)
+Truman (21%)
+Warren (1%)
+Don't know/No answer (19%)
+James Byrnes (1%)
+Taft (Robert) (3%)
+Vandenberg (4%)
+Saltonstall (3%)
+Not Truman (1%)
+Stassen (3%)
+Henry Wallace (4%)
+Eisenhower (5%)
+Others (2%)
+MacArthur (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-394.QKT02
+QuestionTxt: If you had to decide today, who would be your choice for President in 1948?
+Responses:
+Don't know/No answer (18%)
+Other (5%)
+(George C.) Marshall (1%)
+(Earl) Warren (1%)
+(Robert A.) Taft (3%)
+(Arthur H.) Vandenberg (5%)
+Bricker (2%)
+(Douglas) MacArthur (2%)
+(Henry A.) Wallace (4%)
+(Dwight D.) Eisenhower (3%)
+(Thomas E.) Dewey (18%)
+No choice, no one in particular (3%)
+It's too far ahead, wait to see who's running (*%)
+(Harry S.) Truman (28%)
+(Harold E.) Stassen (7%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-402.QKT16
+QuestionTxt: If you had to decide today, who would be your choice for President in 1948?
+Responses:
+Eisenhower (4%)
+Stassen (7%)
+Truman (28%)
+MacArthur (2%)
+Bricker (1%)
+Vandenberg (2%)
+Taft (4%)
+Dewey (18%)
+Marshall (1%)
+Warren (2%)
+It's too far ahead, wait to see who's running (*%)
+No choice, no one in particular (4%)
+Wallace (3%)
+Don't know/No answer (18%)
+Other (6%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-403.QKT14
+QuestionTxt: What man would you like to see elected President of the country in 1948?
+Responses:
+Wallace (4%)
+Vandenberg (2%)
+Taft (2%)
+Warren (2%)
+Others (6%)
+Don't know/No answer (18%)
+MacArthur (3%)
+Stassen (7%)
+Dewey (18%)
+Eisenhower (7%)
+Truman (26%)
+It's too far ahead, wait to see who's running (1%)
+No choice, no one in particular (3%)
+Bricker (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-405.QKT06B
+QuestionTxt: Will you tell me which one of those men (Barkley, Byrd, Byrnes, Thomas Dewey, Dwight Eisenhower, Forrestal, Douglas MacArthur, Marshall, Martin, Pepper, Stassen, Taft, Harry Truman, Vandenberg, Warren, Wallace) you would at this time favor as a candidate for President next year (1948)?
+Responses:
+Barkley (*%)
+Byrd (*%)
+Byrnes (1%)
+Dewey (20%)
+Eisenhower (14%)
+Forrestal (*%)
+Pepper (1%)
+Wallace (4%)
+Truman (27%)
+Vandenberg (4%)
+Taft (5%)
+Stassen (8%)
+Martin (1%)
+Marshall (2%)
+MacArthur (8%)
+nan (2%)
+Warren (2%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-405.QKT06C
+QuestionTxt: Who would be your second choice (at this time as a candidate for President next year, 1948, from this list of names)? Barkley, Byrd, Byrnes, Thomas Dewey, Dwight Eisenhower, Forrestal, Douglas MacArthur, Marshall, Martin, Pepper, Stassen, Taft, Harry Truman, Vandenberg, Warren, Wallace.
+Responses:
+Truman/Eisenhower (*%)
+Warren/Truman (*%)
+Wallace/Warren (*%)
+nan (8%)
+Eisenhower/Dewey (*%)
+Byrd (*%)
+Dewey (13%)
+Eisenhower (17%)
+Forrestal (1%)
+MacArthur (11%)
+Marshall (6%)
+Martin (1%)
+Pepper (1%)
+Barkley (2%)
+Taft (7%)
+Stassen (9%)
+Any Democrat (*%)
+Wallace (4%)
+Byrnes (2%)
+Vandenberg (6%)
+Truman (9%)
+Warren (5%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-407.QKT04B
+QuestionTxt: Who would be your second choice (if you had a chance to vote for a favorite candidate for President in 1948 and the election were being held today)...Democrats: George C. Marshall, Harry S. Truman, Henry A. Wallace, or Republicans: Thomas E. Dewey, Dwight D. Eisenhower, Douglas MacArthur, Joseph W. Martin, Leverett A. Saltonstall, Harold E. Stassen, Robert A. Taft, Arthur H. Vandenberg, Earl Warren?
+Responses:
+None, no choice (5%)
+George C. Marshall (15%)
+Harry S. Truman (9%)
+Henry A. Wallace (5%)
+Other (1%)
+Earl Warren (4%)
+Arthur H. Vandenberg (5%)
+Robert A. Taft (6%)
+Harold E. Stassen (8%)
+Leverett A. Saltonstall (2%)
+Joseph W. Martin (2%)
+Douglas MacArthur (12%)
+Dwight D. Eisenhower (16%)
+Thomas E. Dewey (12%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47-408K.QK04B
+QuestionTxt: WHO WOULD BE YOUR SECOND CHOICE FOR PRESIDENT IN 1948?
+Responses:
+SALTONSTALL (1%)
+STASSEN (9%)
+MARTIN (1%)
+TAFT (6%)
+VANDENBURG (4%)
+WARREN (5%)
+MARSHALL (13%)
+TRUMAN (7%)
+WALLACE (5%)
+DEWEY (11%)
+EISENHOWER (15%)
+OTHER DEMOCRATS (1%)
+OTHER REPUBLICANS (*%)
+OTHER--NOT SPECIFIED (*%)
+MACARTHUR (7%)
+NONE (5%)
+No answer (10%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.47396.QKT06
+QuestionTxt: What man would you like to see elected President of the country in 1948?
+Responses:
+Vandenberg (4%)
+Bricker (1%)
+MacArthur (2%)
+Stassen (7%)
+Wallace (3%)
+Eisenhower (2%)
+Marshall (2%)
+Others (4%)
+Don't know/No answer (24%)
+Dewey (16%)
+A Democrat (1%)
+Warren (2%)
+Taft (2%)
+No choice, no one in particular (3%)
+Truman (27%)
+It's too far ahead, wait to see who's running (*%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.48-412K.QK03C
+QuestionTxt: WITH (DWIGHT) EISENHOWER OUT OF THE RACE, WHO WOULD YOU LIKE TO SEE ELECTED PRESIDENT OF THE U.S. (UNITED STATES) THIS FALL (1948)?
+Responses:
+TRUMAN (23%)
+PEPPER (*%)
+BYRNES (*%)
+OTHER DEMOCRATS (*%)
+STASSEN (9%)
+TAFT (6%)
+DEWEY (15%)
+MARTIN (*%)
+MACARTHUR (4%)
+SALTONSTALL (*%)
+WARREN (2%)
+VANDENBERG (3%)
+OTHER REPUBLICANS (*%)
+WALLACE (4%)
+EISENHOWER (*%)
+NORMAN THOMAS (*%)
+NONE (1%)
+DON'T KNOW, NO ANSWER (33%)
+MARSHALL (1%)
+BYRD (*%)
+FORRESTAL (*%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.48-412T.QT09B
+QuestionTxt: WHO WOULD BE YOUR SECOND CHOICE (FOR THE MAN YOU WOULD LIKE TO SEE ELECTED PRESIDENT OF THE UNITED STATES IN 1948)?
+Responses:
+OTHER REPUBLICANS (*%)
+VANDENBERG (8%)
+OTHERS--DON'T KNOW PARTY (*%)
+EISENHOWER (1%)
+DON'T KNOW, NO ANSWER (8%)
+NORMAN THOMAS (*%)
+NONE (3%)
+WALLACE (3%)
+WARREN (3%)
+TRUMAN (10%)
+MACARTHUR (9%)
+FORRESTAL (2%)
+PEPPER (2%)
+FARLEY (3%)
+ANDERSON (1%)
+BYRNES (4%)
+OTHER DEMOCRATS (*%)
+STASSEN (9%)
+TAFT (7%)
+DEWEY (15%)
+BYRD (1%)
+MARSHALL (10%)
+SALTONSTALL (1%)
+MARTIN (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.48-416.QKT08A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see elected President of the United States in 1948?
+Responses:
+Byrd (1%)
+Baldwin (*%)
+Wallace (4%)
+Other Republicans (*%)
+Vandenberg (7%)
+Warren (2%)
+MacArthur (12%)
+Martin (1%)
+Dewey (15%)
+Taft (4%)
+Stanson (21%)
+Eisenhower (1%)
+Other Democrats (*%)
+Douglas (1%)
+nan (1%)
+Farley (1%)
+Pepper (*%)
+Forrestal (1%)
+Truman (18%)
+Marshall (6%)
+Byrnee (2%)
+Don't know/No answer (3%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.48-416.QKT08B
+QuestionTxt: Who would be your second choice?
+Responses:
+Forrestal (2%)
+Baldwin (*%)
+Warren (4%)
+Truman (7%)
+Other Democrats (*%)
+Vandenberg (9%)
+Don't know/No answer (7%)
+Marshall (3%)
+Byrd (1%)
+Stanson (15%)
+Taft (6%)
+Dewey (14%)
+Martin (2%)
+nan (2%)
+Eisenhower (1%)
+Wallace (2%)
+Byrnee (4%)
+Douglas (1%)
+Other Republicans (*%)
+Farley (3%)
+MacArthur (9%)
+Pepper (2%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.48-417.QT13A
+QuestionTxt: Will you look over all these possible candidates and tell me which one man you'd like to see elected President of the United States in 1948?
+Responses:
+Don't know/No answer (4%)
+MacArthur (8%)
+Martin (1%)
+Dewey (14%)
+Taft (3%)
+Stassen (25%)
+Byrnes (2%)
+Pepper (1%)
+Farley (1%)
+Baldwin (*%)
+Forrestal (*%)
+Truman (21%)
+Marshall (4%)
+Byrd (1%)
+Douglas (1%)
+Warren (2%)
+nan (*%)
+Eisenhower (1%)
+Wallace (4%)
+Vandenberg (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.48-421.QKT03D
+QuestionTxt: If Wallace should withdraw (drop out) from the (1948 Presidential) race, how would you then vote--for Dewey or for Truman?
+Responses:
+Truman (31%)
+No opinion (24%)
+Eisenhower (1%)
+Norman Thomas, Socialist (3%)
+Dewey (33%)
+Won't vote (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USROPER.46-053.R08B
+QuestionTxt: Suppose Truman and Dewey should be the candidates for President next time (1948), which do you think you would be likely to favor?
+Responses:
+Dewey (41%)
+Truman (41%)
+Don't know (19%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USROPER.4760P2.R08A
+QuestionTxt: Suppose Truman and... Dewey... should be the candidates for President next time, which do you think you would be likely to favor? (Rotate)
+Responses:
+Truman (43%)
+Opponent (45%)
+Don't know (12%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USROPER.48-064.R05C1
+QuestionTxt: If (Henry) Wallace changed his mind and decided not to run, who do you think you would be likely to favor (in the 1948 Presidential election)--Truman or... Dewey?
+Responses:
+Don't know (7%)
+Neither (vol.) (18%)
+Dewey (39%)
+Truman (36%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USROPER.48-064.R06A
+QuestionTxt: Here is a list of men who are nationally prominent today. Of course, some of them might not accept the nomination, but regardless of whether or not they would accept it, which one of these men do you think would make the best president?
+Responses:
+Thomas Dewey (12%)
+Harry Byrd (1%)
+Don't know (6%)
+Earl Warren (3%)
+Henry Wallace (4%)
+Arthur Vandenberg (9%)
+Harry Truman (11%)
+Dwight Eisenhower (24%)
+Douglas MacArthur (15%)
+William Douglas (1%)
+George Marshall (4%)
+Harold Taft (3%)
+Harold Stassen (6%)
+Joseph Martin (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USROPER.48-067.R09A
+QuestionTxt: What are one or two of your main reasons for preferring Truman for President over Dewey (in 1948)?
+Responses:
+Truman is sincere, hard working, well meaning man (7%)
+He could do a good job if it weren't for an uncooperative Congress (3%)
+I know more about him (1%)
+Fear another depression (4%)
+Like his policies, ideas (no further information) (1%)
+Prefer his foreign policy (aid) program (3%)
+Like his Civil Rights program (4%)
+Don't know (6%)
+Like his stand on high prices--price control (3%)
+He has followed in the Roosevelt tradition (4%)
+Democratic party stands for working people-- the common man (3%)
+Prefer other specific policies of the Democratic Party (1%)
+Prefer other specific policies and ideals Truman has (3%)
+I don't like Dewey as well (6%)
+Dislike Republican Party (2%)
+All other (9%)
+Prefer Democratic Party Platform (2%)
+He is more for the service man and veterans (1%)
+He is a better man (3%)
+He has done well in the job under the circumstances (deserves chance to continue) (15%)
+Now is not the time to change horses--he knows problems of the day (22%)
+He is a Democrat (18%)
+He's for the working class, the common man (18%)
+isValid_llm: True
+isValid_final: False
+
+
+Disagreements:
+
+QuestionID: USGALLUP.52-500.QK12A
+QuestionTxt: If the (1952) presidential election were being held today, which candidate would you prefer--Eisenhower, the Republican candidate, or Stevenson, the Democratic candidate?
+Responses:
+Undecided (9%)
+Other (vol.) (*%)
+Democratic (39%)
+Republican (51%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.52-500.QK12B
+QuestionTxt: If the (1952) presidential election were being held today, which candidate would you prefer--Eisenhower, the Republican candidate, or Stevenson, the Democratic candidate? (If Undecided, ask:) Which way are you leaning at present--toward the Republican candidate or the Democratic candidate?
+Responses:
+Republican including leaners (53%)
+Democratic including leaners (43%)
+Other including leaners (vol.) (*%)
+Undecided (4%)
+isValid_llm: True
+isValid_final: False
+
+
+Disagreements:
+
+QuestionID: USCPS.53PRE.Q19A
+QuestionTxt: Did you vote for (Dwight) Eisenhower or (Adlai) Stevenson (for President 1952)?
+Responses:
+Eisenhower (67%)
+Stevenson (33%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCPS.54PRE.Q39
+QuestionTxt: Do you remember for sure whether or not you voted in 1952 when (Dwight) Eisenhower ran against (Adlai) Stevenson (for President)? Which one did you vote for, Eisenhower or Stevenson?
+Responses:
+Don't know whether voted in 1952 or not (1%)
+No, didn't vote in 1952 (16%)
+Yes, don't know or no answer for whom (1%)
+Yes, voted for minor candidate (*%)
+Yes, voted for Stevenson (30%)
+Yes, voted for Eisenhower (51%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.011754.RK21
+QuestionTxt: Now, suppose Senator (Joseph) McCarthy runs for President on a third party ticket in 1956. If the candidates were Dwight Eisenhower for the Republican party, and Adlai Stevenson for the Democratic party, and McCarthy on a third party ticket, which one of these three would you prefer as president?
+Responses:
+Stevenson (35%)
+Eisenhower (51%)
+McCarthy (5%)
+No opinion (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.041854.RK21
+QuestionTxt: If Dwight Eisenhower is the Republican candidate and Adlai Stevenson is the Democratic candidate, which party would you like to see win the presidential election in 1956--the Republican party or the Democratic party?
+Responses:
+Democratic (37%)
+Undecided (18%)
+Republican (45%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.050855.RK21
+QuestionTxt: Suppose Senator Joseph McCarthy runs for President on a third party ticket in 1956. If the candidates were Dwight Eisenhower for the Republican party, Adlai Stevenson for the Democratic party, and McCarthy on a third party ticket, which one of these three would you prefer as President?
+Responses:
+Eisenhower (55%)
+Undecided (4%)
+McCarthy (4%)
+Stevenson (37%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.122254.RK19
+QuestionTxt: Suppose Senator Joseph McCarthy runs for President on a third party ticket in 1956. If the candidates were Dwight Eisenhower for the Republican party, Adlai Stevenson for the Democratic party, and Senator McCarthy on a third party ticket, which of these would you prefer as President?
+Responses:
+Stevenson (41%)
+Eisenhower (51%)
+Undecided (3%)
+McCarthy (5%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.54536.QK09Q
+QuestionTxt: Suppose the (1956) Presidential election were being held today. If Eisenhower were the Republican candidate and Adlai Stevenson were the Democratic candidate, which party would you like to see win--the Republican party or the Democratic party?
+Responses:
+Democratic (41%)
+Undecided (11%)
+Other (*%)
+Republican (48%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.55-547.Q13A
+QuestionTxt: SUPPOSE THE (1956) PRESIDENTIAL ELECTION WERE BEING HELD TODAY. IF EISENHOWER WERE THE REPUBLICAN CANDIDATE AND ADLAI STEVENSON WERE THE DEMOCRATIC CANDIDATE, WHICH CANDIDATE WOULD YOU LIKE TO SEE WIN--THE REPUBLICAN CANDIDATE OR THE DEMOCRATIC CANDIDATE? IF UNDECIDED, ASK: AS OF TODAY, WOULD YOU LEAN MORE TO EISENHOWER, THE REPUBLICAN, OR TO STEVENSON, THE DEMOCRAT?
+Responses:
+REPUBLICAN CANDIDATE (50%)
+DEMOCRATIC CANDIDATE (38%)
+OTHER CANDIDATE (VOL.) (2%)
+LEANS MORE TO EISENHOWER (4%)
+LEANS MORE TO STEVENSON (1%)
+Undecided (5%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.55-551.Q017A
+QuestionTxt: Suppose the Presidential election were being held today. If Eisenhower were the Republican candidate and Adlai Stevenson were the Democratic candidate, which candidate would you like to see win--the Republican candidate or the Democratic candidate?
+Responses:
+Republican (53%)
+Democratic (38%)
+Other candidate (*%)
+Undecided (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.56-563.Q15A
+QuestionTxt: If Kefauver were nominated for President and Stevenson for Vice-President on the Democratic ticket and Eisenhower and Nixon were on the Republican ticket, which ticket would you like to see win--Kefauver and Stevenson or Eisenhower and Nixon? (If 'Undecided,' ask:) As of today, would you lean more to a Democratic ticket with Kefauver and Stevenson, or more to a Republican ticket with Eisenhower and Nixon?
+Responses:
+Undecided lean Eisenhower-Nixon (1%)
+Undecided lean Kefauver-Stevenson (1%)
+Other (1%)
+Undecided lean undecided (4%)
+Eisenhower-Nixon (56%)
+Kefauver-Stevenson (37%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.56-567.Q54A
+QuestionTxt: If Eisenhower were nominated for President and Nixon for Vice-President on the Republican ticket, and Stevenson and Senator John F. Kennedy of Massachusetts were on the Democratic ticket, which ticket would you like to see win--Eisenhower and Nixon or Stevenson and Kennedy? (If 'Undecided,' ask:) As of today, would you lean more to a Republican ticket with Eisenhower and Nixon, or more to a Democratic ticket with Stevenson and Kennedy?
+Responses:
+Ike-Nixon (56%)
+Stevenson-Kennedy (39%)
+Lean Ike-Nixon (1%)
+Undecided lean (4%)
+Lean Stevenson-Kennedy (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USROPER.CM67.QA05
+QuestionTxt: (It now looks fairly certain that President (Dwight) Eisenhower will run for re-election on the Republican ticket this November and that Adlai Stevenson will again be the Democratic candidate for President. However, the choice of both the Democratic and Republican Vice Presidential candidates is still uncertain and I would like to ask you a few questions about possible Vice Presidential candidates for both parties.) Suppose the Republican ticket is President Eisenhower and Vice President (Richard) Nixon and the Democratic ticket is Adlai Stevenson and Senator Estes Kafauver of Tennessee. If the election were being held today, who would you vote for--Eisenhower and Nixon or Stevenson and Kafauver?
+Responses:
+Stevenson and Kafauver (39%)
+Eisenhower and Nixon (52%)
+Neither/Don't know (9%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USROPER.RCOM64.Q26D
+QuestionTxt: Do you mind telling me who you voted for (for President) in 1952--(Adlai) Stevenson or (President Dwight) Eisenhower?
+Responses:
+Stevenson (38%)
+Don't know (1%)
+Eisenhower (60%)
+Other (1%)
+isValid_llm: True
+isValid_final: False
+
+
+Disagreements:
+
+QuestionID: USGALLUP.58-602.Q028
+QuestionTxt: IF VICE-PRESIDENT NIXON WERE THE REPUBLICAN CANDIDATE AND SEN. JOHN KENNEDY WERE THE DEMOCRATIC CANDIDATE, WHICH WOULD YOU LIKE TO SEE WIN (THE 1960 PRESIDENTIAL ELECTION)? (IF UNDECIDED, ASK:) AS OF TODAY, WOULD YOU LEAN MORE TO NIXON, THE REPUBLICAN, OR TO KENNEDY, THE DEMOCRAT?
+Responses:
+LEANS MORE TOWARD KENNEDY (3%)
+LEANS MORE TOWARD NIXON (4%)
+Undecided (8%)
+KENNEDY (45%)
+NIXON (37%)
+OTHER (VOL.) (3%)
+isValid_llm: False
+isValid_final: True
+
+
+Disagreements:
+
+QuestionID: USGALLUP.840.Q012
+QuestionTxt: IF RICHARD NIXON WERE THE REPUBLICAN CANDIDATE AND GEORGE MCGOVERN WERE THE DEMOCRATIC CANDIDATE AND GEORGE WALLACE RAN AGAIN AS A THIRD PARTY CANDIDATE, WHICH WOULD YOU LIKE TO SEE WIN (THE 1972 PRESIDENTIAL ELECTION)? IF 'UNDECIDED OR OTHER', ASK: AS OF TODAY, DO YOU LEAN MORE TO NIXON, THE REPUBLICAN, MCGOVERN, THE DEMOCRAT, OR TO WALLACE THE THIRD PARTY CANDIDATE?
+Responses:
+UNDECIDED OR OTHER, UNDECIDED WHO LEAN TOWARD (6%)
+UNDECIDED OR OTHER, LEANS TOWARD OTHER CANDIDATE (1%)
+UNDECIDED OR OTHER, LEANS TOWARD WALLACE (*%)
+UNDECIDED OR OTHER, LEANS TOWARD MCGOVERN (2%)
+WALLACE (13%)
+MCGOVERN (31%)
+NIXON (46%)
+UNDECIDED OR OTHER, LEANS TOWARD NIXON (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.011072.R1
+QuestionTxt: Suppose for President next year (1972) it were Richard Nixon for the Republicans, Senator McGovern of South Dakota for the Democrats, and Governor George Wallace as an Independent. If you had to choose right now, who would you vote for?
+Responses:
+Not sure (8%)
+Wallace (12%)
+Nixon (49%)
+McGovern (31%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.042772.R3
+QuestionTxt: Suppose in 1972 for President it were between Richard Nixon for the Republicans,...George McGovern...for the Democrats, and George Wallace as an Independent. If you had to choose right now, who would you be for?
+Responses:
+Nixon (47%)
+McGovern (29%)
+Wallace (16%)
+Not sure (8%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.052272.R1
+QuestionTxt: Suppose in 1972 for President it were between Richard Nixon for the Republicans, Senator George McGovern for the Democrats, and Governor George Wallace as an Independent. If you had to choose right now, whom would you be for?
+Responses:
+Not sure (8%)
+McGovern (35%)
+Nixon (40%)
+Wallace (17%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.062672.R2
+QuestionTxt: Suppose in 1972 for President it were between Nixon the Republican, Senator George McGovern for the Democrats, and George Wallace as an Independent. If you had to choose now, whom would you be for?
+Responses:
+McGovern (33%)
+Nixon (45%)
+Not sure (5%)
+Wallace (17%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.71APR.R11
+QuestionTxt: In 1972 for President, suppose it were between Richard Nixon for the Republicans...George McGovern...for the Democrats, and George Wallace as an Independent. If you had to choose right now, who would you be for? (If 'Not sure,' ask:) If you had to choose one, would you lean toward Nixon, the Republican...George McGovern...the Democrat, or Wallace, the Independent?
+Responses:
+Nixon (46%)
+George McGovern (36%)
+Wallace (13%)
+Not sure (5%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.71AUG.R12
+QuestionTxt: In 1972 for President, suppose it were between Richard Nixon for the Republicans,...George McGovern... for the Democrats, and George Wallace as an Independent. If you had to choose right now, who would you be for? (If 'not sure,' ask:) If you had to choose one, would you lean toward Nixon, the Republican,...McGovern...the Democrat, or Wallace, the Independent?
+Responses:
+Nixon (48%)
+Not sure (6%)
+Wallace (13%)
+McGovern (33%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.71FEB.R08
+QuestionTxt: In 1972 for President, suppose it were between Richard Nixon for the Republicans, (McGovern) for the Democrats, and George Wallace as an Independent. If you had to choose right now, who would you be for? (If 'not sure' ask:) If you had to choose one, would you lean toward Nixon the Republican, (McGovern), the Democrat, or Wallace, the Independent?
+Responses:
+Wallace (12%)
+McGovern (34%)
+Nixon (45%)
+Not sure (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.71MAY.R04
+QuestionTxt: In 1972 for President, suppose it were between Richard Nixon for the Republicans...George McGovern...for the Democrats, and George Wallace as an Independent. If you had to choose right now, who would you be for? (If 'Not sure,' ask:) If you had to choose one, would you lean toward Nixon, the Republican...George McGovern...the Democrat, or Wallace, the Independent?
+Responses:
+George McGovern (33%)
+Wallace (11%)
+Not sure (9%)
+Nixon (47%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.71NOV.R09
+QuestionTxt: In 1972 for President, suppose it were between Richard Nixon, for the Republicans...George McGovern...for the Democrats, and George Wallace as an Independent. If you had to choose right now, who would you be for? (If 'Not sure,' ask:) If you had to choose one, would you lean toward Nixon, the Republican... George McGovern...the Democrat, or Wallace, the Independent?
+Responses:
+George McGovern (31%)
+Nixon (49%)
+Wallace (12%)
+Not sure (8%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USHARRIS.72VS2.R23I
+QuestionTxt: Suppose in 1972 for President, it were between Nixon the Republican, Senator George McGovern the Democrat, and George Wallace as an Independent? If you had to choose right now, who would you be for?
+Responses:
+Not sure (18%)
+Men's Responses (nan%)
+McGovern (28%)
+McGovern (28%)
+Nixon (44%)
+Women's Responses (nan%)
+Nixon (46%)
+McGovern (28%)
+McGovern (28%)
+Wallace (15%)
+Wallace (10%)
+Not sure (11%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USORC.041371.R29
+QuestionTxt: Now suppose the (1972 presidential) candidates were Richard Nixon, George McGovern, and George Wallace as a third party candidate. Which one would you vote for? (If 'None' or 'Undecided,' ask:) Would you say that you lean more toward Richard Nixon, more toward George McGovern, or more toward George Wallace?
+Responses:
+George McGovern (23%)
+George Wallace (15%)
+Lean Richard Nixon (1%)
+Lean George McGovern (1%)
+Don't know/Undecided (12%)
+Richard Nixon (48%)
+Lean George Wallace (*%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USORC.072072.R04
+QuestionTxt: Now suppose the (1972 Presidential) candidates were Richard Nixon, George McGovern, and George Wallace as a third party candidate. Which one would you vote for--Nixon, McGovern, or Wallace?
+Responses:
+McGovern (25%)
+Nixon (42%)
+None (vol.) (3%)
+Wallace (21%)
+Don't know/Undecided (9%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USYANK.72VOT1.Q09
+QuestionTxt: Supposing George Wallace was to run (for President) again this year (1972) on the American Independent Party line, whom would you vote for--(Richard) Nixon, (George) McGovern, or Wallace?
+Responses:
+Not sure (13%)
+Wallace (15%)
+McGovern (27%)
+Nixon (45%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USYANK.72VOT1.Q11B1
+QuestionTxt: Generally, who would you say is the real peace (presidential) candidate (1972)--(George) McGovern or (Richard) Nixon?
+Responses:
+McGovern (46%)
+Nixon (54%)
+isValid_llm: True
+isValid_final: False
+
+
+Disagreements:
+
+QuestionID: USCBSNYT.092676.R03
+QuestionTxt: Which (1976) presidential candidate do you think is more likely to do a better job handling our country's economy?
+Responses:
+Ford (42%)
+Carter (44%)
+Someone else (vol.) (1%)
+Don't know/No answer (13%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCBSNYT.092676.R04
+QuestionTxt: Both (1976) presidential candidates have been talking about taxes. Whose policy do you prefer--Ford's or Carter's?
+Responses:
+Ford (40%)
+Carter (40%)
+Neither (vol.) (4%)
+Both (vol.)/Don't know/No answer (16%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.955.Q004A
+QuestionTxt: Now that the Democrats have nominated Jimmy Carter for President and Mondale for Vice President, let's suppose the Republicans nominate Gerald Ford for President and Ronald Reagan for Vice President. If the (1976) presidential election were being held today, which would you like to see win, Carter and Mondale or Ford and Reagan?
+Responses:
+Ford-Reagan (28%)
+Other/Undecided/No answer (9%)
+Carter-Mondale (63%)
+isValid_llm: True
+isValid_final: False
+
+
+Disagreements:
+
+QuestionID: USABC.111179.R01
+QuestionTxt: As you know, a year from now we will be voting in a presidential election but if the (1980) election were being held today, who would you vote for? (open-ended)
+Responses:
+Reagan (9%)
+Carter (17%)
+Kennedy (29%)
+Baker (4%)
+Brown (1%)
+Undecided (33%)
+Connally (3%)
+Ford (3%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USABCHS.051580.R2
+QuestionTxt: Now, suppose the polls showed that John Anderson had a real chance of winning the presidential election in November (1980). If you had to choose right now, would you vote for Reagan the Republican, Carter the Democrat, or Anderson the independent?
+Responses:
+Reagan (35%)
+Anderson (29%)
+Carter (31%)
+Not sure (3%)
+None (vol.) (2%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USABCHS.081280.R2
+QuestionTxt: Now, suppose the polls showed that John Anderson had a real chance of winning the Presidential election in November (1980). If you had to choose right now, would you vote for Reagan the Republican, Carter the Democrat or Anderson the Independent?
+Responses:
+Other (vol.)/Not sure (3%)
+Reagan (42%)
+Carter (25%)
+Anderson (30%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USABCHS.082080.R2
+QuestionTxt: Now suppose the polls show that John Anderson had a real chance of winning the presidential election in November (1980). If you had to choose right now, would you vote for Reagan the Republican, Carter the Democrat, or Anderson the independent?
+Responses:
+Carter (29%)
+Not sure (3%)
+Anderson (31%)
+Reagan (37%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USABCHS.082180.R2
+QuestionTxt: Now suppose the polls showed that John Anderson had a real chance of winning the presidential election in November (1980). If you had to choose right now, would you vote for Reagan the Republican, Carter the Democrat, or Anderson the independent?
+Responses:
+Anderson (31%)
+Carter (29%)
+Reagan (37%)
+Not sure (3%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USABCHS.091180.R1
+QuestionTxt: Now, suppose the polls showed that John Anderson had a real chance of winning the presidential election in November (1980). If you had to choose right now, would you vote for Reagan the Republican, Carter the Democrat, or Anderson the independent?
+Responses:
+Anderson (26%)
+Not sure (3%)
+Reagan (39%)
+Carter (32%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USABCHS.101080.R2
+QuestionTxt: Now suppose the polls began to show that John Anderson had a real chance of winning the (1980) presidential election, if you had to choose right now, would you vote for Reagan the Republican, Carter the Democrat, or Anderson the independent?
+Responses:
+Carter (35%)
+Reagan (38%)
+Anderson (24%)
+Not sure (3%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USABCHS.281280.R2
+QuestionTxt: Now, suppose the polls showed that John Anderson had a real chance of winning the Presidential election in November (1980). If you had to choose right now, would you vote for Reagan the Republican, Carter the Democrat or Anderson the Independent?
+Responses:
+Other (vol.)/Not sure (2%)
+Anderson (30%)
+Reagan (46%)
+Carter (22%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCAMREP.80JUL.R213
+QuestionTxt: Let's say that in October (1980) the polls showed that Ronald Reagan, Jimmy Carter and John Anderson all had the same number of votes (for President)--that is, that they all had an equal chance to win. In that case, would you vote for the Democrat Jimmy Carter, the Republican Ronald Reagan, or the Independent John Anderson?
+Responses:
+Anderson (14%)
+Reagan (29%)
+Carter (32%)
+Undecided (25%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCBS.090078.R38
+QuestionTxt: What if Jimmy Carter ran against Ronald Reagan. Would you vote for Carter or Reagan (in the 1980 Presidential election)?
+Responses:
+No opinion (9%)
+Wouldn't vote (vol.) (2%)
+Reagan (34%)
+Carter (55%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USCBS.78ELEC.RM
+QuestionTxt: Who would you like to see elected president in 1980?
+Responses:
+Someone else (13%)
+Ronald Reagan (21%)
+Gerald Ford (17%)
+Edward Kennedy (26%)
+Jimmy Carter (22%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCBSNYT.080980.R13
+QuestionTxt: What if John Anderson were not a candidate for President? If the (1980) Presidential election were being held today, which of these candidates would you vote for--Jimmy Carter the Democrat, or Ronald Reagan, the Republican?
+Responses:
+Carter (34%)
+Reagan (56%)
+Wouldn't vote (vol.) (4%)
+Other (Vol.) (1%)
+No opinion (5%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCBSNYT.091680.R07
+QuestionTxt: What if John Anderson were not a candidate for President? If the (1980) Presidential election were being held today, which of these candidates would you vote for--Jimmy Carter, the Democrat, or Ronald Reagan, the Republican?
+Responses:
+Carter (48%)
+Reagan (42%)
+Wouldn't vote (vol) (4%)
+No opinion (6%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCBSNYT.092780.R04
+QuestionTxt: What if John Anderson were not a candidate for President? If the (1980) Presidential election were being held today, which of these candidates would you vote for--Jimmy Carter, the Democrat, or Ronald Reagan, the Republican?
+Responses:
+Reagan (44%)
+Wouldn't vote (Vol.) (2%)
+No opinion (9%)
+Carter (45%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCBSNYT.102280.R04
+QuestionTxt: What if John Anderson were not a candidate for President? If the (1980) Presidential election were being held today, which of these candidates would you vote for--Jimmy Carter, the Democrat, or Ronald Reagan, the Republican?
+Responses:
+Carter (47%)
+Reagan (45%)
+Wouldn't vote (Vol.) (2%)
+No opinion (6%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USCBSNYT.110280.R04
+QuestionTxt: What if John Anderson were not a candidate for President? If the (1980) Presidential election were being held today, which of these candidates would you vote for--Jimmy Carter, the Democrat, or Ronald Reagan, the Republican?
+Responses:
+Reagan (48%)
+Carter (45%)
+Wouldn't vote (Vol.) (2%)
+No opinion (5%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USGALLUP.1131.Q009C
+QuestionTxt: If President Jimmy Carter were the Democratic candidate and Ronald Reagan were the Republican candidate, which would you like to see win (the 1980 presidential election)? As of today, do you lean more to Carter, the Democrat, or to Reagan, the Republican?
+Responses:
+Other (vol.) (1%)
+Lean Reagan (1%)
+Lean Carter (2%)
+Reagan (47%)
+Carter (43%)
+Undecided/Not Applicable (6%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.1148.Q04A
+QuestionTxt: Suppose the (1980) presidential election were being held TODAY. If President Jimmy Carter were the Democratic candidate and Ronald Reagan were the Republican candidate, which would you like to see win?
+Responses:
+Carter (57%)
+Reagan (27%)
+Other (vol.) (*%)
+Undecided (15%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.1149.Q03A
+QuestionTxt: Suppose the (1980) presidential election were being held TODAY. If President Jimmy Carter were the Democratic candidate and Ronald Reagan were the Republican candidate, which would you like to see win?
+Responses:
+Reagan (30%)
+Undecided (15%)
+Carter (55%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.1151.Q06A
+QuestionTxt: If President Jimmy Carter were the Democratic candidate and Ronald Reagan were the Republican candidate, which would you like to see win (the 1980 Presidential election)?
+Responses:
+Reagan (45%)
+Carter (55%)
+Undecided (*%)
+Other (Vol.) (*%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.1153.Q06A
+QuestionTxt: If President Jimmy Carter were the Democratic candidate and Ronald Reagan were the Republican candidate, which one would you like to see win (in the 1980 Presidential election)?
+Responses:
+Undecided (*%)
+Other (Vol.) (*%)
+Carter (54%)
+Reagan (45%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.1153.Q08A
+QuestionTxt: If President Jimmy Carter were the Democratic candidate, running against Ronald Reagan, the Republican candidate, and John Anderson, an independent candidate, which would you like to see win (the 1980 Presidential election)?
+Responses:
+Anderson (19%)
+Undecided (*%)
+Reagan (36%)
+Carter (45%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.1159.Q008A&B
+QuestionTxt: Of course, Ronald Reagan and John Anderson have not yet chosen their vice presidential running mates, but suppose the presidential election were being held today, which of these tickets would you vote for--a Republican ticket of Reagan and George Bush, a Democratic ticket of Jimmy Carter and Walter Mondale, or an Independent ticket headed by Anderson? (If other or undecided, ask:) As of today, would you lean more to a Republican ticket of Reagan and Bush, a Democratic ticket of Carter and Mondale, or to an Independent ticket headed by Anderson?
+Responses:
+Carter-Mondale (36%)
+Reagan-Bush (39%)
+Lean Reagan-Bush (1%)
+Lean Carter-Mondale (1%)
+Lean Anderson (*%)
+Other (vol.) (1%)
+Undecided (8%)
+Anderson (13%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALLUP.998.Q007C
+QuestionTxt: Suppose the (1980) presidential election were being held today. If Jimmy Carter were the Democratic candidate and Ronald Reagan were the Republican candidate, which would you like to see win?
+Responses:
+Undecided (7%)
+Reagan (43%)
+Carter (50%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USGALNEW.100680.R1
+QuestionTxt: If the (1980) Presidential election were being held today, which candidate would you like to see win?
+Responses:
+Reagan (39%)
+Carter (35%)
+Undecided (12%)
+Anderson (14%)
+isValid_llm: False
+isValid_final: True
+
+
+QuestionID: USLAT.36.R030
+QuestionTxt: If you thought that John Anderson had a real chance to become President of the United States, for whom would you vote (in 1980): Anderson, Carter or Reagan?
+Responses:
+Anderson (23%)
+Other (Vol.) (1%)
+Reagan (36%)
+Not sure (12%)
+Carter (27%)
+Refused (1%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USNBCAP.62.R14
+QuestionTxt: Now, what if John Anderson were not in the race. Then, if the (1980 Presidential) election were being held today, would you vote for Ronald Reagan, the Republican, or Jimmy Carter, the Democrat?
+Responses:
+Jimmy Carter (44%)
+Ronald Reagan (51%)
+Other (vol.) (2%)
+Not sure (3%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USNBCAP.63.R09
+QuestionTxt: Now, what if John Anderson were not in the race. Then, if the (1980 Presidential) election were being held today, would you vote for Ronald Reagan, the Republican, or Jimmy Carter, the Democrat?
+Responses:
+Other (Vol.) (3%)
+Not sure (3%)
+Reagan (50%)
+Carter (44%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USROPER.80-7.R59
+QuestionTxt: (Wording in 'X' half-sample) Now, suppose the (1980) Presidential election were being held today. If Jimmy Carter were the Democratic candidate and Ronald Reagan the Republican candidate, who do you think you would vote for? (Wording in 'Y' half-sample) Now, suppose Anderson can't get on the ballot in enough states and therefore drops out of the race. Under those circumstances who do you think you would vote for--Jimmy Carter on the Democratic ticket or Ronald Reagan on the Republican ticket?
+Responses:
+Reagan (37%)
+Carter (35%)
+Undecided, don't know, no answer (28%)
+isValid_llm: True
+isValid_final: False
+
+
+QuestionID: USROPER.80-8.R02
+QuestionTxt: In this year's (1980) presidential race, Jimmy Carter and his running mate Walter Mondale are on the ballot as the Democratic candidates in every state, and so are Ronald Reagan and George Bush as the Republican candidates. John Anderson is not yet on the ballot in all states. Assuming Anderson does not get on the ballot in this state, and the election were being held today, who do you think you would vote for--Carter and Mondale, or Reagan and Bush? (If undecided:) As of today, who do you lean to more: Carter and Mondale or Reagan and Bush?
+Responses:
+Definite Carter/Mondale (35%)
+Other (vol) (5%)
+Lean to Reagan/Bush (5%)
+Definite Reagan/Bush (35%)
+Lean to Carter/Mondale (6%)
+Undecided/Don't know (14%)
+isValid_llm: True
+isValid_final: False
+
+Success Rate: 93.11%
+Number of errors: 141
+Total questions: 2046
