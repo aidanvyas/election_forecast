@@ -1,16 +1,20 @@
 import pandas as pd
 import json
 import os
-from typing import List, Dict, Tuple
+from typing import List, Dict
 from llm_calls import call_gemini_flash
-from validate_polls_gui import validate_polls
+from datetime import datetime, timedelta
+from polling_isValid_gui import run_gui
+from polling_isValid_testing import compare_llm_with_final
 
-def format_polls(filename: str) -> List[Dict[str, str]]:
+
+def format_polling(filename: str, year: int) -> List[Dict[str, str]]:
     """
     Formats general election polling data from a CSV file into a JSON string.
 
     Args:
         filename (str): The path to the CSV file containing the polling data.
+        year (int): The year of the general election.
 
     Returns:
         List[Dict[str, str]]: A list of dictionaries containing the formatted polling data.
@@ -19,8 +23,39 @@ def format_polls(filename: str) -> List[Dict[str, str]]:
     # Read the polling data from the CSV file.
     df = pd.read_csv(filename)
 
+    # Sort by BegDate, EndDate, and QuestionID.
+    df = df.sort_values(['BegDate', 'EndDate', 'QuestionID'])
+
     # Create a list of dictionaries to store the formatted polling data.
     formatted_data = []
+
+    # Define the election dates for each year.
+    election_dates_dictionary = {
+        1936: '1936-11-03', 1940: '1940-11-05',1944: '1944-11-07',
+        1948: '1948-11-02', 1952: '1952-11-04', 1956: '1956-11-06',
+        1960: '1960-11-08', 1964: '1964-11-03', 1968: '1968-11-05',
+        1972: '1972-11-07', 1976: '1976-11-02', 1980: '1980-11-04',
+        1984: '1984-11-06', 1988: '1988-11-08', 1992: '1992-11-03',
+        1996: '1996-11-05', 2000: '2000-11-07', 2004: '2004-11-02',
+        2008: '2008-11-04', 2012: '2012-11-06', 2016: '2016-11-08',
+        2020: '2020-11-03', 2024: '2024-11-05'
+    }
+    
+    # Convert the 'BegDate' and 'EndDate' columns to datetime objects.
+    df['BegDate'] = pd.to_datetime(df['BegDate'])
+    df['EndDate'] = pd.to_datetime(df['EndDate'])
+
+    # Define the start and end dates for the election year.
+    start_date = datetime.strptime(election_dates_dictionary[year-4], '%Y-%m-%d') + timedelta(days=1) if year != 1936 else None
+    end_date = datetime.strptime(election_dates_dictionary[year], '%Y-%m-%d') - timedelta(days=1) if year != 2024 else None
+
+    # Filter the polling data based on the election year.
+    if start_date and end_date:
+        df = df[(df['BegDate'] >= start_date) & (df['EndDate'] <= end_date)]
+    elif start_date:
+        df = df[df['BegDate'] >= start_date]
+    elif end_date:
+        df = df[df['EndDate'] <= end_date]
 
     # Iterate over the unique question IDs in the polling data.
     for question_id in df['QuestionID'].unique():
@@ -340,6 +375,36 @@ def create_polls_isValid_system_prompt(candidates: List[str], year: int) -> str:
                     "ResponsePct": "40"
                 }}
             ]
+        }},
+        {{
+            "QuestionID": "USGALLUP.44-319.QT04A",
+            "QuestionText": "Will you look over all these possible candidates and tell me which one man you'd like to see as the next President of the United States?... Democratic: Hull, Roosevelt, Wallace, Republican: Dewey, Bricker or Stassen?",
+            "Responses": [
+                {{
+                    "ResponseText": "Hull",
+                    "ResponsePct": "3"
+                }},
+                {{
+                    "ResponseText": "Roosevelt",
+                    "ResponsePct": "48"
+                }},
+                {{
+                    "ResponseText": "Wallace",
+                    "ResponsePct": "2"
+                }},
+                {{
+                    "ResponseText": "Dewey",
+                    "ResponsePct": "36"
+                }},
+                {{
+                    "ResponseText": "Bricker",
+                    "ResponsePct": "7"
+                }},
+                {{
+                    "ResponseText": "Stassen",
+                    "ResponsePct": "5"
+                }}
+            ]
         }}
     ]
 
@@ -352,12 +417,17 @@ def create_polls_isValid_system_prompt(candidates: List[str], year: int) -> str:
         {{
             "questionId": "USGALLUP.42-283.QK08",
             "isValid": false
+        }},
+        {{
+            "questionId": "USGALLUP.44-319.QT04A",
+            "isValid": false
         }}
     ]
 
     Explanation:
     - The poll is valid because it directly asks voters who they would vote for -- it's okay that it includes leaners in the response options.
     - The poll is invalid because it includes multiple candidates from the same party (Wendell Willkie and Thomas Dewey) and (Franklin D. Roosevelt and Henry Wallace) running for the same position.
+    - The poll is invalid because it includes multiple candidates from the same party (Thomas Dewey, John Bricker, and Harold Stassen) running for the same position, and does not include at least two of the specified candidates in the response options.
 
     Analyze the poll data provided and determine if it's valid based on these criteria.
     
@@ -431,7 +501,7 @@ def process_polls_isValid(formatted_data: List[Dict[str, str]], candidates: List
     return processed_df
 
 
-def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame) -> pd.DataFrame:
+def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame):
     """
     Merges the processed poll data with the original poll data and saves the result to a new CSV file.
 
@@ -440,7 +510,7 @@ def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame) -> pd.D
         processed_df (pd.DataFrame): A DataFrame containing the processed poll data with the isValid field.
 
     Returns:
-        pd.DataFrame: The merged DataFrame containing the original polling data with the isValid field.
+        None
     """
 
     # Read the original polling data from the CSV file.
@@ -449,61 +519,63 @@ def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame) -> pd.D
     # Merge the processed poll data with the original polling data.
     merged_df = df.merge(processed_df, left_on='QuestionID', right_on='questionId', how='left')
 
+    # Remove any rows with missing values in the isValid column
+    merged_df = merged_df.dropna(subset=['isValid'])
+
     # Drop the questionId column from the merged DataFrame.
     merged_df.drop(columns=['questionId'], inplace=True)
 
-    # Generate the output filename for LLM-generated results
+    # Get the base filename without the extension.
     base_filename = os.path.splitext(os.path.basename(filename))[0]
-    output_filename = f'processed_data/polling/{base_filename}_isvalid_llm.csv'
+    output_filename = f'data/intermediate/polling/{base_filename}_isvalid_llm.csv'
 
     # Save the merged DataFrame to a new CSV file.
     merged_df.to_csv(output_filename, index=False)
 
-    # Return the merged DataFrame.
-    return merged_df
-
 
 def main():
-    # Hard-coded values
     filename = 'data/raw/polling/1936_roosevelt_landon.csv'
     candidates = ['Franklin D. Roosevelt', 'Alf Landon']
     year = 1936
-    batch_size = 50
+    batch_size = 40
 
-    # filename = 'data/raw/polling/1940_roosevelt_willkie.csv'
-    # candidates = ['Franklin D. Roosevelt', 'Wendell Willkie']
-    # year = 1940
+    filename = 'data/raw/polling/1940_roosevelt_willkie.csv'
+    candidates = ['Franklin D. Roosevelt', 'Wendell Willkie']
+    year = 1940
 
-    # filename = 'data/raw/polling/1944_roosevelt_dewey.csv'
-    # candidates = ['Franklin D. Roosevelt', 'Thomas Dewey']
-    # year = 1944
+    filename = 'data/raw/polling/1944_roosevelt_dewey.csv'
+    candidates = ['Franklin D. Roosevelt', 'Thomas E. Dewey']
+    year = 1944
 
-    # Format the polling data.
-    formatted_data = format_polls(filename)
+    filename = 'data/raw/polling/1948_truman_dewey.csv'
+    candidates = ['Harry S. Truman', 'Thomas E. Dewey']
+    year = 1948
 
+    filename = 'data/raw/polling/1952_stevenson_eisenhower.csv'
+    candidates = ['Adlai Stevenson II', 'Dwight D. Eisenhower']
+    year = 1952
+
+    filename = 'data/raw/polling/1956_eisenhower_stevenson.csv'
+    candidates = ['Dwight D. Eisenhower', 'Adlai Stevenson II']
+    year = 1956
 
     base_filename = os.path.splitext(os.path.basename(filename))[0]
     llm_filename = f'data/intermediate/polling/{base_filename}_isvalid_llm.csv'
-    human_filename = f'data/intermediate/polling/{base_filename}_isvalid_human.csv'
-    final_filename = f'data/intermediate/polling/{base_filename}_isvalid_final.csv'
 
-    validate_polls(filename)
-    return None
+    # Format the polling data.
+    formatted_data = format_polling(filename, year)
 
-    # # Process polls via LLM
-    # processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
+    # Process the polling data using the Gemini Flash API.
+    processed_df = process_polls_isValid(formatted_data, candidates, year, batch_size)
 
-    # Call the testing suite
-    # TODO: Import and call the testing suite function here
-    # test_results = run_testing_suite(processed_df)
+    # Merge the processed data with the original polling data.
+    merge_polls_with_validity(filename, processed_df)
 
-    # If all checks are correct, merge and save with 'final' suffix
-    # if test_results['all_passed']:
-    merged_df = merge_polls_with_validity(filename, processed_df)
-    merged_df.to_csv(final_filename, index=False)
-    print(f"Final results saved to: {final_filename}")
-    # else:
-    #     print("Testing suite failed. Please review the results.")
+    # Call the human GUI.
+    run_gui(llm_filename)
+
+    # Compare the LLM and final CSV files.
+    compare_llm_with_final(llm_filename, llm_filename.replace('llm', 'final'))
 
 
 if __name__ == "__main__":
