@@ -1,6 +1,5 @@
 import os
 import google.generativeai as genai
-import logging
 import json
 from typing import List, Dict
 
@@ -22,11 +21,6 @@ def call_gemini_flash(llm_input: str, system_prompt: str) -> List[Dict]:
 
     # Configure the API key for the Gemini Flash API.
     genai.configure(api_key=api_key)
-
-    # Suppress logging from the Google Cloud libraries.
-    logging.getLogger('google.api_core').setLevel(logging.ERROR)
-    logging.getLogger('google.auth').setLevel(logging.ERROR)
-    logging.getLogger('google.cloud').setLevel(logging.ERROR)
 
     # Generation configuration for the language model.
     generation_config = {

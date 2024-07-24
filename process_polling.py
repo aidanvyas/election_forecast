@@ -6,6 +6,13 @@ from llm_calls import call_gemini_flash
 from datetime import datetime, timedelta
 from polling_isValid_gui import run_gui
 from polling_isValid_testing import compare_llm_with_final
+import logging
+
+# Suppress logging from the Google Cloud libraries.
+logging.getLogger('google.api_core').setLevel(logging.ERROR)
+logging.getLogger('google.auth').setLevel(logging.ERROR)
+logging.getLogger('google.cloud').setLevel(logging.ERROR)
+
 
 
 def format_polling(filename: str, year: int) -> List[Dict[str, str]]:
@@ -138,13 +145,17 @@ def create_polls_isValid_system_prompt(candidates: List[str], year: int) -> str:
     Questions that ask about leaning towards a candidate if undecided are valid.
     Polls conducted before candidates have officially announced may use language like "if X were the nominee" and are still valid.
 
+    Remember to focus solely on determining the validity of the poll based on these criteria. Do not include explanations or additional commentary in your output.
+    
     Output format:
     Your output should be a JSON object with the following structure:
+    [
     {{
-        "questionId": string,
-        "isValid": boolean
+        "QuestionID": string,
+        "isValid": boolean,
     }}
-    Remember to focus solely on determining the validity of the poll based on these criteria. Do not include explanations or additional commentary in your output."""
+    ]
+    """
 
 
 
@@ -543,6 +554,9 @@ def process_polls_isValid(formatted_data: List[Dict[str, str]], candidates: List
         # Call the Gemini Flash API to check the validity of the polls.
         response = call_gemini_flash(batch_json, system_prompt)
 
+        # Print a message indicating the progress.
+        print(f"Processed polls {i+1} to {min(i+batch_size, len(formatted_data))} for the {year} election.")
+
         # Append the responses to the list.
         responses.extend(response)
 
@@ -569,13 +583,10 @@ def merge_polls_with_validity(filename: str, processed_df: pd.DataFrame):
     df = pd.read_csv(filename)
 
     # Merge the processed poll data with the original polling data.
-    merged_df = df.merge(processed_df, left_on='QuestionID', right_on='questionId', how='left')
+    merged_df = df.merge(processed_df, on='QuestionID', how='left')
 
     # Remove any rows with missing values in the isValid column
     merged_df = merged_df.dropna(subset=['isValid'])
-
-    # Drop the questionId column from the merged DataFrame.
-    merged_df.drop(columns=['questionId'], inplace=True)
 
     # Get the base filename without the extension.
     base_filename = os.path.splitext(os.path.basename(filename))[0]
